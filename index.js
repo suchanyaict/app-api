@@ -9,7 +9,7 @@ app.use(cors())
 const connection = mysql.createConnection(process.env.DATABASE_URL)
 
 app.all('/', (req, res) => {
-    res.send('Yo!')
+    res.send('hello!')
 })
 
 app.get('/bus', (req,res) => {
