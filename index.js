@@ -14,7 +14,7 @@ app.all('/', (req, res) => {
 
 app.get('/bus', (req,res) => {
     connection.query(
-        'select BusCode,BusNumber,StationName,RouteSerial,lat,lng from stationInfo where StationName = "โรงพยาบาลธรรมศาสตร์เฉลิมพระเกียรติ";',
+        'select * from stationInfo; ',
         function(err, result, fields){
             res.send(result)
         }
