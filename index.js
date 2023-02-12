@@ -24,7 +24,7 @@ app.get("/bus", (req, res) => {
 app.get("/bus/:id", (req, res) => {
   const searchID = req.params.id;
   const query =
-    'select BusNumber from stationInfo where StationName like "%' +
+    'select * from stationInfo where StationName like "%' +
     searchID +
     '%";';
   connection.query(query, function (err, result, fields) {
