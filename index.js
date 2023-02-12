@@ -14,7 +14,7 @@ app.all('/', (req, res) => {
 
 app.get('/bus', (req,res) => {
     connection.query(
-        'select * from stationInfo"; ',
+        'select * from stationInfo; ',
         function(err, result, fields){
             res.send(result)
         }
