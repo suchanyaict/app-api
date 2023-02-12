@@ -21,7 +21,7 @@ app.get("/bus", (req, res) => {
   );
 });
 
-app.get("/bus/:id", (req, res) => {
+app.get("/bus/stationName/:id", (req, res) => {
   const searchID = req.params.id;
   const query =
     'select distinct * from stationInfo where StationName like "%' +
