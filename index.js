@@ -32,4 +32,10 @@ app.get("/bus/stationName/:id", (req, res) => {
   });
 });
 
+app.post("/bus/price/:id", (req, res) => {
+  const busNum = req.params.id;
+  const results = busNum + 1;
+  res.send(results);
+});
+
 app.listen(process.env.PORT || 3000);
