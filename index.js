@@ -32,7 +32,7 @@ app.get("/bus/stationName/:id", (req, res) => {
   });
 });
 
-app.post("/bus/price/:id", (req, res) => {
+app.get("/bus/price/:id", (req, res) => {
   const busNum = req.params.id;
   const results = busNum + 1;
   res.send(results);
