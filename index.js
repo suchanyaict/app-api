@@ -33,9 +33,9 @@ app.get("/bus/stationName/:id", (req, res) => {
 });
 
 app.post("/bus/price", (req, res) => {
-  const {price, distance} = req.body;
-  const results = price + 1+distance;
-  res.send(results);
+  const {busType, distance} = req.body;
+  const results = busType + 1+distance;
+  res.send(busType+distance);
 });
 
 app.listen(process.env.PORT || 3000);
