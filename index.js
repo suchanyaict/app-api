@@ -38,7 +38,7 @@ app.post("/bus/price", (req, res) => {
   var price = 0;
   if (busType === "red") {
     price = 8;
-  } else if (busType == "acBlue") {
+  } else if (busType === "acBlue") {
     if (distance >= 0 && distance <= 8) {
       price = 12;
     } else if (distance > 8 && distance <= 12) {
@@ -50,7 +50,7 @@ app.post("/bus/price", (req, res) => {
     } else if (distance > 20) {
       price = 20;
     }
-  } else if (busType == "euro2" || busType == "acPCB") {
+  } else if (busType === "euro2" || busType === "acPCB") {
     if (distance >= 0 && distance <= 4) {
       price = 13;
     } else if (distance > 4 && distance <= 8) {
@@ -66,7 +66,7 @@ app.post("/bus/price", (req, res) => {
     } else if (distance > 23) {
       price = 25;
     }
-  } else if (busType == "ngv") {
+  } else if (busType === "ngv") {
     if (distance >= 0 && distance <= 4) {
       price = 15;
     } else if (distance > 4 && distance <= 6) {
