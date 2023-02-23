@@ -35,7 +35,7 @@ app.get("/bus/stationName/:id", (req, res) => {
 
 app.post("/bus/price", (req, res) => {
   const { busType, distance } = req.body;
-  const price = 0;
+  var price = 0;
   if (busType === "red") {
     price = 8;
   } else if (busType == "acBlue") {
