@@ -32,9 +32,9 @@ app.get("/bus/stationName/:id", (req, res) => {
   });
 });
 
-app.get("/bus/price/:id", (req, res) => {
-  const busNum = req.params.id;
-  const results = busNum + 1;
+app.post("/bus/price", (req, res) => {
+  const {price, distance} = req.body;
+  const results = price + 1+distance;
   res.send(results);
 });
 
