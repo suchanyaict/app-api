@@ -34,8 +34,8 @@ app.get("/bus/stationName/:id", (req, res) => {
 });
 
 app.post("/bus/price", (req, res) => {
-  const { busType, distance } = req.body;
-  distance = parseFloat(distance);
+  const { busType, distanceReq } = req.body;
+  const distance = parseFloat(distanceReq);
   const price = 0;
   if (busType == "red") {
     price = 8;
