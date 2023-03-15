@@ -38,7 +38,7 @@ app.post("/bus/busNumber", (req, res) => {
   const query =
     'select BusNumber from stationInfo where StationName in ('+start+','+stop+') GROUP BY BusNumber having COUNT(StationName) > 1;';
   connection.query(query, function (err, result, fields) {
-    res.send(result);
+    res.send(start+stop);
   });
 });
 
