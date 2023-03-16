@@ -33,8 +33,10 @@ app.get("/bus/stationName/:id", (req, res) => {
   });
 });
 
-app.get("/bus/busNumber", (req, res) => {
-  const { start, stop } = req.body;
+app.get("/bus/busNumber/:start/:stop", (req, res) => {
+  const start = req.params.start;
+  const stop = req.params.stop;
+
   const query =
     'select BusNumber from stationInfo where StationName in ("' +
     start +
