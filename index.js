@@ -36,12 +36,34 @@ app.get("/bus/stationName/:id", (req, res) => {
 app.post("/bus/busNumber", (req, res) => {
   const { start, stop } = req.body;
   const query =
-    'select BusNumber from stationInfo where StationName in ("'+start+'","'+stop+'") GROUP BY BusNumber having COUNT(StationName) > 1;';
+    'select BusNumber from stationInfo where StationName in ("' +
+    start +
+    '","' +
+    stop +
+    '") GROUP BY BusNumber having COUNT(StationName) > 1;';
   connection.query(query, function (err, result, fields) {
     res.send(result);
   });
 });
 
+app.post("/bus/passingStop", (req, res) => {
+  const { start, stop, busNumber } = req.body;
+  const query =
+    'select * from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+    start +
+    '" and BusNumber = "' +
+    busNumber +
+    '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+    stop +
+    '" and BusNumber = "' +
+    busNumber +
+    '") having BusNumber = "' +
+    busNumber +
+    '";';
+  connection.query(query, function (err, result, fields) {
+    res.send(result);
+  });
+});
 
 app.post("/bus/price", (req, res) => {
   const { busType, distance } = req.body;
