@@ -48,19 +48,22 @@ app.get("/bus/busNumber/start:start&stop:stop", (req, res) => {
   });
 });
 
-app.post("/bus/passingStop", (req, res) => {
-  const { start, stop, busNumber } = req.body;
+app.get("/bus/passingStop/start:start&stop:stop/:BusNo", (req, res) => {
+  const start = req.params.start;
+  const stop = req.params.stop;
+  const BusNo = req.params.BusNo;
+
   const query =
     'select * from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
     start +
     '" and BusNumber = "' +
-    busNumber +
+    BusNo +
     '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
     stop +
     '" and BusNumber = "' +
-    busNumber +
+    BusNo +
     '") having BusNumber = "' +
-    busNumber +
+    BusNo +
     '";';
   connection.query(query, function (err, result, fields) {
     res.send(result);
