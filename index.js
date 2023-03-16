@@ -48,7 +48,7 @@ app.get("/bus/busNumber/start:start&stop:stop", (req, res) => {
   });
 });
 
-app.get("/bus/passingStop/start:start&stop:stop/:BusNo", (req, res) => {
+app.get("/passingStop/:start&stop/:BusNo", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   const BusNo = req.params.BusNo;
@@ -80,7 +80,7 @@ app.get("/busType/:busNumber", (req, res) => {
   });
 });
 
-app.get("/bus/price/:type&:distance", (req, res) => {
+app.get("/price/:type&:distance", (req, res) => {
   const busType = req.params.busType;
   const distance = req.params.distance;
   var price = 0;
