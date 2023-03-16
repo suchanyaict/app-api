@@ -70,6 +70,16 @@ app.get("/bus/passingStop/start:start&stop:stop/:BusNo", (req, res) => {
   });
 });
 
+app.get("/busType/:busNumber", (req, res) => {
+  const busNumber = req.params.busNumber;
+
+  const query =
+    'select Category from busInfo where BusNumber = "' + busNumber + '";';
+  connection.query(query, function (err, result, fields) {
+    res.send(result);
+  });
+});
+
 app.get("/bus/price/:type&:distance", (req, res) => {
   const busType = req.params.busType;
   const distance = req.params.distance;
