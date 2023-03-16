@@ -70,12 +70,13 @@ app.get("/bus/passingStop/start:start&stop:stop/:BusNo", (req, res) => {
   });
 });
 
-app.post("/bus/price", (req, res) => {
-  const { busType, distance } = req.body;
+app.get("/bus/price/:type&:distance", (req, res) => {
+  const busType = req.params.busType;
+  const distance = req.params.distance;
   var price = 0;
-  if (busType === "red") {
+  if (busType === "regular") {
     price = 8;
-  } else if (busType === "acBlue") {
+  } else if (busType === "AC") {
     if (distance >= 0 && distance <= 8) {
       price = 12;
     } else if (distance > 8 && distance <= 12) {
@@ -87,7 +88,7 @@ app.post("/bus/price", (req, res) => {
     } else if (distance > 20) {
       price = 20;
     }
-  } else if (busType === "euro2" || busType === "acPCB") {
+  } else if (busType === "Euro2" || busType === "acPCB") {
     if (distance >= 0 && distance <= 4) {
       price = 13;
     } else if (distance > 4 && distance <= 8) {
@@ -103,7 +104,7 @@ app.post("/bus/price", (req, res) => {
     } else if (distance > 23) {
       price = 25;
     }
-  } else if (busType === "ngv") {
+  } else if (busType === "NGV") {
     if (distance >= 0 && distance <= 4) {
       price = 15;
     } else if (distance > 4 && distance <= 6) {
@@ -112,7 +113,7 @@ app.post("/bus/price", (req, res) => {
       price = 25;
     }
   }
-  res.send(`Price : ${price}`);
+  res.send(`${price}`);
 });
 
 app.listen(process.env.PORT || 3000);
