@@ -33,7 +33,7 @@ app.get("/bus/stationName/:id", (req, res) => {
   });
 });
 
-app.get("/bus/busNumber/:start/:stop", (req, res) => {
+app.get("/bus/busNumber/start:start&stop:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
 
