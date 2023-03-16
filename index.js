@@ -61,7 +61,7 @@ app.post("/bus/passingStop", (req, res) => {
     busNumber +
     '";';
   connection.query(query, function (err, result, fields) {
-    res.send(query);
+    res.send(result);
   });
 });
 
