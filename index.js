@@ -9,10 +9,12 @@ app.use(cors());
 
 const connection = mysql.createConnection(process.env.DATABASE_URL);
 
+//
 app.all("/", (req, res) => {
   res.send("hello!");
 });
 
+// all station info
 app.get("/bus", (req, res) => {
   connection.query(
     "select * from stationInfo; ",
@@ -22,17 +24,32 @@ app.get("/bus", (req, res) => {
   );
 });
 
+// ip: input
+// op: station name
+app.get("/bus/:input", (req, res) => {
+  const input = req.params.input;
+  const query =
+    'select StationName from stationInfo where StationName like "%' +
+    input +
+    '%";';
+  connection.query(query, function (err, result, fields) {
+    res.send(result.toString);
+  });
+});
+
+// ip: station name
+// op: all info
 app.get("/bus/stationName/:id", (req, res) => {
   const searchID = req.params.id;
   const query =
-    'select distinct * from stationInfo where StationName like "%' +
-    searchID +
-    '%";';
+    'select * from stationInfo where StationName like "%' + searchID + '%";';
   connection.query(query, function (err, result, fields) {
     res.send(result);
   });
 });
 
+// ip: start & stop
+// op: busNumber
 app.get("/bus/busNumber/start:start&stop:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
@@ -48,6 +65,8 @@ app.get("/bus/busNumber/start:start&stop:stop", (req, res) => {
   });
 });
 
+// ip: start & stop & busNum
+// op: all stop info that bus passing by
 app.get("/passingStop/:start&stop/:BusNo", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
@@ -70,6 +89,8 @@ app.get("/passingStop/:start&stop/:BusNo", (req, res) => {
   });
 });
 
+// ip: busNum
+// op: bus type
 app.get("/busType/:busNumber", (req, res) => {
   const busNumber = req.params.busNumber;
 
@@ -80,6 +101,8 @@ app.get("/busType/:busNumber", (req, res) => {
   });
 });
 
+// ip: bust type & distance
+// op: price
 app.get("/price/:type&:distance", (req, res) => {
   const busType = req.params.busType;
   const distance = req.params.distance;
