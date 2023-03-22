@@ -33,7 +33,7 @@ app.get("/bus/:input", (req, res) => {
     input +
     '%";';
   connection.query(query, function (err, result, fields) {
-    res.send('result');
+    res.send(result);
   });
 });
 
