@@ -154,7 +154,7 @@ app.get("/price/:busNumber&:distance", (req, res) => {
     }
     // result.get(0)
   
-    res.send(price);
+    res.send(`${price}`);
   });
 });
 
