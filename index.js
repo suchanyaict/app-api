@@ -74,17 +74,22 @@ app.get("/passingStop/:start&stop/:BusNo", (req, res) => {
   const BusNo = req.params.BusNo;
 
   const query =
-    'select * from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+    'select BusNumber from stationInfo where StationName in ("' +
     start +
-    '" and BusNumber = "' +
-    BusNo +
-    '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+    '","' +
     stop +
-    '" and BusNumber = "' +
-    BusNo +
-    '") having BusNumber = "' +
-    BusNo +
-    '";';
+    '") GROUP BY BusNumber having COUNT(StationName) > 1;';
+  // 'select * from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+  // start +
+  // '" and BusNumber = "' +
+  // BusNo +
+  // '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+  // stop +
+  // '" and BusNumber = "' +
+  // BusNo +
+  // '") having BusNumber = "' +
+  // BusNo +
+  // '";';
   connection.query(query, function (err, result, fields) {
     res.send(result);
   });
@@ -102,8 +107,8 @@ app.get("/busType/:busNumber", (req, res) => {
   });
 });
 
-// ip: bust type & distance
-// op: price
+// ip: start&stop/distance
+// op: busNumber, price
 app.get("/price/:start&:stop/:distance", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
@@ -128,7 +133,6 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
         'select Category from busInfo where BusNumber = "' + busNum + '";';
       connection.query(query, function (err, resultType, fields) {
         busType = resultType[0].Category;
-        // console.log(busType);
         if (busType === "regular") {
           price = 8;
         } else if (busType === "AC") {
@@ -175,13 +179,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
         } else {
           tempList += 1;
         }
-        console.log(tempList);
-        console.log(resultNum.length);
-        // console.log(obj);
-        console.log(listResult);
-        // res.send(listResult);
       });
-      console.log(listResult);
     });
   });
 });
