@@ -26,7 +26,7 @@ app.get("/bus", (req, res) => {
 // ip: null
 // op: station name
 app.get("/stationname", (req, res) => {
-  const query = "select StationName from stationInfo;";
+  const query = "SELECT DISTINCT StationName from stationInfo;";
   connection.query(query, function (err, result, fields) {
     res.send(result);
   });
