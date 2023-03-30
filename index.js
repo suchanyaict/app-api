@@ -127,7 +127,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
     console.log("test");
     // console.log("%s", eachBus);
     // console.log()
-    console.log(eachBus);
+    // console.log(eachBus);
   }
   res.send(busNum);
   // res.send(`$eachBus`);
