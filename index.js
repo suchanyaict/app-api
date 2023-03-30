@@ -42,7 +42,9 @@ app.get("/bus/:input", (req, res) => {
 app.get("/bus/stationName/:id", (req, res) => {
   const searchID = req.params.id;
   const query =
-    'select BusNumber from stationInfo where StationName like "%' + searchID + '%";';
+    'select BusNumber from stationInfo where StationName like "%' +
+    searchID +
+    '%";';
   connection.query(query, function (err, result, fields) {
     res.send(result);
   });
@@ -103,10 +105,16 @@ app.get("/busType/:busNumber", (req, res) => {
 
 // ip: bust type & distance
 // op: price
-app.get("/price/:type&:distance", (req, res) => {
-  const busType = req.params.busType;
+app.get("/price/:busNumber&:distance", (req, res) => {
+  const busNumber = req.params.busNumber;
   const distance = req.params.distance;
+  const busType = "";
   var price = 0;
+  const query =
+    'select Category from busInfo where BusNumber = "' + busNumber + '";';
+  connection.query(query, function (err, result, fields) {
+    busType = result
+  });
   if (busType === "regular") {
     price = 8;
   } else if (busType === "AC") {
