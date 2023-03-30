@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
-var request = require('request');
+var request = require("request");
 require("dotenv").config();
 const app = express();
 app.use(express.json());
@@ -106,74 +106,72 @@ app.get("/busType/:busNumber", (req, res) => {
 
 // ip: bust type & distance
 // op: price
-app.get("/price/:busNumber&:distance", (req, res) => {
-  const busNumber = req.params.busNumber;
+app.get("/price/:start:stop&:distance", (req, res) => {
+  const start = req.params.start;
+  const stop = req.params.stop;
   const distance = req.params.distance;
-  var price = 0;
-  const query =
-    'select Category from busInfo where BusNumber = "' + busNumber + '";';
-  connection.query(query, function (err, result, fields) {
-    const busType = result[0].Category;
-    if (busType === "regular") {
-      price = 8;
-    } else if (busType === "AC") {
-      if (distance >= 0 && distance <= 8) {
-        price = 12;
-      } else if (distance > 8 && distance <= 12) {
-        price = 14;
-      } else if (distance > 12 && distance <= 16) {
-        price = 16;
-      } else if (distance > 16 && distance <= 20) {
-        price = 18;
-      } else if (distance > 20) {
-        price = 20;
-      }
-    } else if (busType === "Euro2" || busType === "acPCB") {
-      if (distance >= 0 && distance <= 4) {
-        price = 13;
-      } else if (distance > 4 && distance <= 8) {
-        price = 15;
-      } else if (distance > 8 && distance <= 12) {
-        price = 17;
-      } else if (distance > 12 && distance <= 16) {
-        price = 19;
-      } else if (distance > 16 && distance <= 20) {
-        price = 21;
-      } else if (distance > 20 && distance <= 23) {
-        price = 23;
-      } else if (distance > 23) {
-        price = 25;
-      }
-    } else if (busType === "NGV") {
-      if (distance >= 0 && distance <= 4) {
-        price = 15;
-      } else if (distance > 4 && distance <= 6) {
-        price = 20;
-      } else if (distance > 16) {
-        price = 25;
-      }
-    }
-    // https://shy-plum-coral-hem.cyclic.app/bus/stationName/ถนนข้าวสาร
-    var options = {
-      host: 'https://shy-plum-coral-hem.cyclic.app',
-      port: 80,
-      path: '/bus/stationName/ถนนข้าวสาร',
-      method: 'GET'
-    };
-    
-    http.request(options, function(res) {
-      console.log('STATUS: ' + res.statusCode);
-      console.log('HEADERS: ' + JSON.stringify(res.headers));
-      res.setEncoding('utf8');
-      res.on('data', function (chunk) {
-        console.log('BODY: ' + chunk);
-      });
-      res.send(chunk);
-    }).end();
-
-    res.send(`${price}`);
+  var busNum = [];
+  var price = "";
+  var busType = "";
+  const busnumQuery =
+    'select BusNumber from stationInfo where StationName in ("' +
+    start +
+    '","' +
+    stop +
+    '") GROUP BY BusNumber having COUNT(StationName) > 1;';
+  connection.query(busnumQuery, function (err, result, fields) {
+    busNum = result;
   });
+  for (let i = 0; i < busNum.length; i++) {
+    eachBus = busNum[i].BusNumber;
+    // console.log(eachBus);
+    res.send(eachBus);
+  }
+  // const query =
+  //   'select Category from busInfo where BusNumber = "' + eachBus + '";';
+  // connection.query(query, function (err, result, fields) {
+  //   busType = result[0].Category;
+  // });
+  // if (busType === "regular") {
+  //   price = 8;
+  // } else if (busType === "AC") {
+  //   if (distance >= 0 && distance <= 8) {
+  //     price = 12;
+  //   } else if (distance > 8 && distance <= 12) {
+  //     price = 14;
+  //   } else if (distance > 12 && distance <= 16) {
+  //     price = 16;
+  //   } else if (distance > 16 && distance <= 20) {
+  //     price = 18;
+  //   } else if (distance > 20) {
+  //     price = 20;
+  //   }
+  // } else if (busType === "Euro2" || busType === "acPCB") {
+  //   if (distance >= 0 && distance <= 4) {
+  //     price = 13;
+  //   } else if (distance > 4 && distance <= 8) {
+  //     price = 15;
+  //   } else if (distance > 8 && distance <= 12) {
+  //     price = 17;
+  //   } else if (distance > 12 && distance <= 16) {
+  //     price = 19;
+  //   } else if (distance > 16 && distance <= 20) {
+  //     price = 21;
+  //   } else if (distance > 20 && distance <= 23) {
+  //     price = 23;
+  //   } else if (distance > 23) {
+  //     price = 25;
+  //   }
+  // } else if (busType === "NGV") {
+  //   if (distance >= 0 && distance <= 4) {
+  //     price = 15;
+  //   } else if (distance > 4 && distance <= 6) {
+  //     price = 20;
+  //   } else if (distance > 16) {
+  //     price = 25;
+  //   }
+  // }
+  // res.send(busNum, price);
 });
 
 app.listen(process.env.PORT || 3000);
-
