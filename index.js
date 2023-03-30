@@ -120,9 +120,16 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
   connection.query(busnumQuery, function (err, result, fields) {
     result.forEach(function (entry) {
-      console.log(entry.BusNumber);
+      busNum = entry.BusNumber;
+      const query =
+        'select Category from busInfo where BusNumber = "' + busNum + '";';
+      connection.query(query, function (err, result, fields) {
+        busType = result[0].Category;
+        console.log(busType);
+      });
     });
-    res.send(result);
+
+    res.send(busNum);
   });
   // console.log(busNum);
   // console.log(busNum.length);
