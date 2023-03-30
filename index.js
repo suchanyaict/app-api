@@ -108,10 +108,10 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   const distance = req.params.distance;
-  console.log("test");
+  // console.log("test");
   var busNum;
-  // var price = "";
-  // var busType = "";
+  var listResult = [];
+  var obj = new Object();
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
     start +
@@ -123,22 +123,57 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
       busNum = entry.BusNumber;
       const query =
         'select Category from busInfo where BusNumber = "' + busNum + '";';
+      obj.busnumber = busNum;
       connection.query(query, function (err, resultType, fields) {
         busType = resultType[0].Category;
         console.log(busType);
+        if (busType === "regular") {
+          price = 8;
+        } else if (busType === "AC") {
+          if (distance >= 0 && distance <= 8) {
+            price = 12;
+          } else if (distance > 8 && distance <= 12) {
+            price = 14;
+          } else if (distance > 12 && distance <= 16) {
+            price = 16;
+          } else if (distance > 16 && distance <= 20) {
+            price = 18;
+          } else if (distance > 20) {
+            price = 20;
+          }
+        } else if (busType === "Euro2" || busType === "acPCB") {
+          if (distance >= 0 && distance <= 4) {
+            price = 13;
+          } else if (distance > 4 && distance <= 8) {
+            price = 15;
+          } else if (distance > 8 && distance <= 12) {
+            price = 17;
+          } else if (distance > 12 && distance <= 16) {
+            price = 19;
+          } else if (distance > 16 && distance <= 20) {
+            price = 21;
+          } else if (distance > 20 && distance <= 23) {
+            price = 23;
+          } else if (distance > 23) {
+            price = 25;
+          }
+        } else if (busType === "NGV") {
+          if (distance >= 0 && distance <= 4) {
+            price = 15;
+          } else if (distance > 4 && distance <= 6) {
+            price = 20;
+          } else if (distance > 16) {
+            price = 25;
+          }
+        }
+        obj.price = price;
+        listResult.push(obj);
+        console.log(obj);
+        console.log(listResult);
       });
     });
-    res.send(resultNum);
+    res.send(listResult);
   });
-  // console.log(busNum);
-  // console.log(busNum.length);
-  // for (let i = 0; i < busNum.length; i++) {
-  // eachBus = busNum[i].BusNumber;
-  // console.log(busNum[i].BusNumber);
-  // console.log("%s", eachBus);
-  // console.log("tset");
-  // console.log(eachBus);
-  // }
   // res.send(busNum);
   // res.send(`$eachBus`);
   // const query =
