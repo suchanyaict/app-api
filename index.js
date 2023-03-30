@@ -121,13 +121,14 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
     busNum = result;
     console.log(busNum);
     console.log(result);
-    res.send(busNum);
+    
   });
-  // for (let i = 0; i < busNum.length; i++) {
-  //   eachBus = busNum[i].BusNumber;
-  //   console.log(eachBus);
-  //   // res.send(`$eachBus`);
-  // }
+  for (let i = 0; i < busNum.length; i++) {
+    eachBus = busNum[i].BusNumber;
+    console.log(eachBus);
+  }
+  res.send(busNum);
+  // res.send(`$eachBus`);
   // const query =
   //   'select Category from busInfo where BusNumber = "' + eachBus + '";';
   // connection.query(query, function (err, result, fields) {
