@@ -90,35 +90,6 @@ app.get("/passingStop/:start&:stop/:busnumber", (req, res) => {
   });
 });
 
-// ip: start & stop & busNum
-// op: all stop info that bus passing by
-// app.get("/bus/passingStop/:start&stop/:BusNo", (req, res) => {
-//   const start = req.params.start;
-//   const stop = req.params.stop;
-//   const BusNo = req.params.BusNo;
-
-//   const query =
-//     'select BusNumber from stationInfo where StationName in ("' +
-//     start +
-//     '","' +
-//     stop +
-//     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
-//   // 'select * from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
-//   // start +
-//   // '" and BusNumber = "' +
-//   // BusNo +
-//   // '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
-//   // stop +
-//   // '" and BusNumber = "' +
-//   // BusNo +
-//   // '") having BusNumber = "' +
-//   // BusNo +
-//   // '";';
-//   connection.query(query, function (err, result, fields) {
-//     res.send(result);
-//   });
-// });
-
 // ip: busNum
 // op: bus type
 app.get("/busType/:busNumber", (req, res) => {
