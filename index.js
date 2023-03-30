@@ -104,7 +104,7 @@ app.get("/busType/:busNumber", (req, res) => {
 
 // ip: bust type & distance
 // op: price
-app.get("/price/:start:stop&:distance", (req, res) => {
+app.get("/price/:start&:stop/:distance", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   const distance = req.params.distance;
