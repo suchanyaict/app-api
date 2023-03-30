@@ -153,7 +153,7 @@ app.get("/price/:busNumber&:distance", (req, res) => {
     }
     // result.get(0)
   
-    res.send(result[0]);
+    res.send(result[0].Category);
   });
 });
 
