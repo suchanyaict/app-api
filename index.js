@@ -121,9 +121,9 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   connection.query(busnumQuery, function (err, resultNum, fields) {
     resultNum.forEach(function (entry) {
       busNum = entry.BusNumber;
+      obj.busnumber = busNum;
       const query =
         'select Category from busInfo where BusNumber = "' + busNum + '";';
-      obj.busnumber = busNum;
       connection.query(query, function (err, resultType, fields) {
         busType = resultType[0].Category;
         console.log(busType);
@@ -169,10 +169,11 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
         obj.price = price;
         listResult.push(obj);
         console.log(obj);
+        console.log(listResult);
       });
-      console.log(listResult);
-      res.send(listResult);
     });
+    res.send(listResult);
+    console.log(listResult);
   });
 });
 
