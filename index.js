@@ -109,8 +109,8 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   const stop = req.params.stop;
   const distance = req.params.distance;
   var busNum = [];
-  var price = "";
-  var busType = "";
+  // var price = "";
+  // var busType = "";
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
     start +
@@ -120,6 +120,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   connection.query(busnumQuery, function (err, result, fields) {
     busNum = result;
     console.log(busNum);
+    console.log(result);
   });
   // for (let i = 0; i < busNum.length; i++) {
   //   eachBus = busNum[i].BusNumber;
