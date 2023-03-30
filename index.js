@@ -151,9 +151,18 @@ app.get("/price/:busNumber&:distance", (req, res) => {
         price = 25;
       }
     }
-    
-    res.send(result);
+    // result.get(0)
+    var parsedData = JSON.parse(result);
+  
+    res.send(parsedData.Category);
   });
 });
 
 app.listen(process.env.PORT || 3000);
+
+
+// [
+//   {
+//       "Category": "regular"
+//   }
+// ]
