@@ -123,13 +123,13 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
     // console.log(busNum);
     // console.log(result);
   });
-  // for (let i = 0; i < busNum.length; i++) {
-  //   // eachBus = busNum[i].BusNumber;
-  //   console.log(busNum[i].BusNumber);
-  //   // console.log("%s", eachBus);
-  //   // console.log()
-  //   // console.log(eachBus);
-  // }
+  for (let i = 0; i < busNum.length; i++) {
+    // eachBus = busNum[i].BusNumber;
+    // console.log(busNum[i].BusNumber);
+    // console.log("%s", eachBus);
+    console.log("tset");
+    // console.log(eachBus);
+  }
   res.send(busNum);
   // res.send(`$eachBus`);
   // const query =
