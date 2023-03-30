@@ -111,7 +111,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   // console.log("test");
   var busNum;
   const listResult = [];
-  var tempList;
+  var tempList = 0;
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -170,11 +170,13 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
         }
         obj.price = price;
         listResult.push(obj);
-        if (tempList != resultNum.length - 1) {
-          tempList += 1;
-        } else {
+        if (tempList == resultNum.length - 1) {
           res.send(listResult);
+        } else {
+          tempList += 1;
         }
+        console.log(tempList);
+        console.log(resultNum.length);
         // console.log(obj);
         console.log(listResult);
         // res.send(listResult);
