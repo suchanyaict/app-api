@@ -168,7 +168,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
           }
         }
         obj.price = price;
-        listResult.push(obj);
+        listResult = listResult.push(obj);
         // console.log(obj);
         // console.log(listResult);
       });
