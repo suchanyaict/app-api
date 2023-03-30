@@ -170,10 +170,10 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
         obj.price = price;
         listResult.push(obj);
         // console.log(obj);
-        // console.log(listResult);
+        console.log(listResult);
+        res.send(listResult);
       });
       console.log(listResult);
-      res.send(listResult);
     });
   });
 });
