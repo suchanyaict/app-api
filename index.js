@@ -66,9 +66,9 @@ app.get("/bus/busNumber/start:start&stop:stop", (req, res) => {
   });
 });
 
-// ip: start & stop
-// op: busNumber
-app.get("/bus/passingStop/start:start&stop:stop/:busnumber", (req, res) => {
+// ip: start & stop & busNum
+// op: all stop info that bus passing by
+app.get("/passingStop/:start&:stop/:busnumber", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   const busnumber = req.params.busnumber;
