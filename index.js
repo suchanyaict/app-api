@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
-var request = require("request");
-require("dotenv").config();
 const app = express();
 app.use(express.json());
 
@@ -125,7 +123,7 @@ app.get("/price/:start:stop&:distance", (req, res) => {
   for (let i = 0; i < busNum.length; i++) {
     eachBus = busNum[i].BusNumber;
     // console.log(eachBus);
-    res.send(eachBus);
+    res.send(`$eachBus`);
   }
   // const query =
   //   'select Category from busInfo where BusNumber = "' + eachBus + '";';
