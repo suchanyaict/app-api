@@ -151,9 +151,8 @@ app.get("/price/:busNumber&:distance", (req, res) => {
         price = 25;
       }
     }
-    const myObj = JSON.parse(result);
-    x = myObj.Category;
-    res.send(`${price} ${result}` + x);
+    
+    res.send(`${price} ${result}`);
   });
 });
 
