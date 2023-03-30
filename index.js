@@ -108,7 +108,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   const distance = req.params.distance;
-  var busNum = [];
+  var busNum;
   // var price = "";
   // var busType = "";
   const busnumQuery =
@@ -121,6 +121,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
     busNum = result;
     console.log(busNum);
     console.log(result);
+    res.send(busNum);
   });
   // for (let i = 0; i < busNum.length; i++) {
   //   eachBus = busNum[i].BusNumber;
