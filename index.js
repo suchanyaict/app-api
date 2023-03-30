@@ -108,6 +108,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   const distance = req.params.distance;
+  console.log("test");
   var busNum;
   // var price = "";
   // var busType = "";
@@ -122,13 +123,13 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
     // console.log(busNum);
     // console.log(result);
   });
-  for (let i = 0; i < busNum.length; i++) {
-    // eachBus = busNum[i].BusNumber;
-    console.log(busNum[i].BusNumber);
-    // console.log("%s", eachBus);
-    // console.log()
-    // console.log(eachBus);
-  }
+  // for (let i = 0; i < busNum.length; i++) {
+  //   // eachBus = busNum[i].BusNumber;
+  //   console.log(busNum[i].BusNumber);
+  //   // console.log("%s", eachBus);
+  //   // console.log()
+  //   // console.log(eachBus);
+  // }
   res.send(busNum);
   // res.send(`$eachBus`);
   // const query =
