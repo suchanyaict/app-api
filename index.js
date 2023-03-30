@@ -111,7 +111,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   // console.log("test");
   var busNum;
   var listResult = [];
-  var obj = new Object();
+
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
     start +
@@ -120,6 +120,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
   connection.query(busnumQuery, function (err, resultNum, fields) {
     resultNum.forEach(function (entry) {
+      var obj = new Object();
       busNum = entry.BusNumber;
       obj.busnumber = busNum;
       const query =
