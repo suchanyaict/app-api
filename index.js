@@ -127,7 +127,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
         'select Category from busInfo where BusNumber = "' + busNum + '";';
       connection.query(query, function (err, resultType, fields) {
         busType = resultType[0].Category;
-        console.log(busType);
+        // console.log(busType);
         if (busType === "regular") {
           price = 8;
         } else if (busType === "AC") {
@@ -169,8 +169,8 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
         }
         obj.price = price;
         listResult.push(obj);
-        console.log(obj);
-        console.log(listResult);
+        // console.log(obj);
+        // console.log(listResult);
       });
     });
     res.send(listResult);
