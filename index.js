@@ -110,7 +110,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   const distance = req.params.distance;
   // console.log("test");
   var busNum;
-  var listResult = [];
+  const listResult = [];
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
