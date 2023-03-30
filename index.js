@@ -23,6 +23,15 @@ app.get("/bus", (req, res) => {
   );
 });
 
+// ip: null
+// op: station name
+app.get("/stationname", (req, res) => {
+  const query = "select StationName from stationInfo;";
+  connection.query(query, function (err, result, fields) {
+    res.send(result);
+  });
+});
+
 // ip: input
 // op: station name
 app.get("/bus/:input", (req, res) => {
