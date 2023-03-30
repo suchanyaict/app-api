@@ -121,10 +121,11 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
     busNum = result;
     console.log(busNum);
     console.log(result);
-    
   });
   for (let i = 0; i < busNum.length; i++) {
     eachBus = busNum[i].BusNumber;
+    console.log("test");
+    console.log("%d", eachBus);
     console.log(eachBus);
   }
   res.send(busNum);
