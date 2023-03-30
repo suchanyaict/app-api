@@ -122,8 +122,8 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   });
   for (let i = 0; i < busNum.length; i++) {
     eachBus = busNum[i].BusNumber;
-    // console.log(eachBus);
-    res.send(`$eachBus`);
+    console.log(eachBus);
+    // res.send(`$eachBus`);
   }
   // const query =
   //   'select Category from busInfo where BusNumber = "' + eachBus + '";';
