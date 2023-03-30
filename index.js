@@ -119,8 +119,8 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
     stop +
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
   connection.query(busnumQuery, function (err, result, fields) {
-    busNum = result;
-    console.log(busNum);
+    // busNum = result;
+    // console.log(busNum);
     console.log(result);
   });
   console.log(busNum);
