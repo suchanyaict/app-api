@@ -68,7 +68,7 @@ app.get("/bus/busNumber/start:start&stop:stop", (req, res) => {
 
 // ip: start & stop & busNum
 // op: all stop info that bus passing by
-app.get("/passingStop/:start&stop/:BusNo", (req, res) => {
+app.get("/bus/passingStop/:start&stop/:BusNo", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   const BusNo = req.params.BusNo;
