@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
+var request = require('request');
 require("dotenv").config();
 const app = express();
 app.use(express.json());
@@ -152,6 +153,24 @@ app.get("/price/:busNumber&:distance", (req, res) => {
         price = 25;
       }
     }
+    // https://shy-plum-coral-hem.cyclic.app/bus/stationName/ถนนข้าวสาร
+    var options = {
+      host: 'https://shy-plum-coral-hem.cyclic.app',
+      port: 80,
+      path: '/bus/stationName/ถนนข้าวสาร',
+      method: 'GET'
+    };
+    
+    http.request(options, function(res) {
+      console.log('STATUS: ' + res.statusCode);
+      console.log('HEADERS: ' + JSON.stringify(res.headers));
+      res.setEncoding('utf8');
+      res.on('data', function (chunk) {
+        console.log('BODY: ' + chunk);
+      });
+      res.send(chunk);
+    }).end();
+
     res.send(`${price}`);
   });
 });
