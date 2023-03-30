@@ -173,9 +173,9 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
         // console.log(listResult);
       });
     });
-    res.send(listResult);
-    console.log(listResult);
   });
+  res.send(listResult);
+  console.log(listResult);
 });
 
 app.listen(process.env.PORT || 3000);
