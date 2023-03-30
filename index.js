@@ -170,7 +170,7 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
         }
         obj.price = price;
         listResult.push(obj);
-        if (tempList != resultNum.length) {
+        if (tempList != resultNum.length - 1) {
           tempList += 1;
         } else {
           res.send(listResult);
