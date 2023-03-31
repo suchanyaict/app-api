@@ -95,7 +95,7 @@ app.get("/passingStop/:start&:stop/:busnumber", (req, res) => {
     busnumber +
     '";';
   connection.query(query, function (err, result, fields) {
-    res.send(result);
+    res.send(query);
   });
 });
 
