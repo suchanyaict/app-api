@@ -50,11 +50,11 @@ app.get("/bus/:input", (req, res) => {
 app.get("/bus/stationName/:id", (req, res) => {
   const searchID = req.params.id;
   const query =
-    'select BusNumber from stationInfo where StationName like "%' +
+    "select stationInfo.BusNumber, concat(busInfo.start_point, ' - ',busInfo.stop_point) from stationInfo join busInfo on stationInfo.busnumber = busInfo.busnumber where StationName like '%" +
     searchID +
-    '%";';
+    "%'";
   connection.query(query, function (err, result, fields) {
-    res.send(result);
+    res.send(query);
   });
 });
 
