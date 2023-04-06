@@ -54,7 +54,7 @@ app.get("/bus/stationName/:id", (req, res) => {
     searchID +
     "%'";
   connection.query(query, function (err, result, fields) {
-    res.send(query);
+    res.send(result);
   });
 });
 
