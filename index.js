@@ -188,4 +188,12 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
   });
 });
 
+app.get("/startandstop/", (req, res) => {
+  const query =
+    "select concat(start_point, ' - ', stop_point), busnumber from busInfo;";
+  connection.query(query, function (err, result, fields) {
+    res.send(result);
+  });
+});
+
 app.listen(process.env.PORT || 3000);
