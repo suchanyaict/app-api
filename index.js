@@ -99,6 +99,56 @@ app.get("/passingStop/:start&:stop/:busnumber", (req, res) => {
   });
 });
 
+// ip: start & stop & busNum
+// op: all stop info that bus passing by
+app.get("/getPassingStop/:start&:stop/", (req, res) => {
+  const start = req.params.start;
+  const stop = req.params.stop;
+  var listResult = [];
+
+  const BusNumQuery =
+    'select * from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+    start +
+    '" and BusNumber = "' +
+    busnumber +
+    '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+    stop +
+    '" and BusNumber = "' +
+    busnumber +
+    '") having BusNumber = "' +
+    busnumber +
+    '";';
+  connection.query(BusNumQuery, function (err, BusNumResult, fields) {
+    BusNumResult.forEach(function (entry) {
+      var obj = new Object();
+      busNum = entry.BusNumber;
+      obj.busNumber = busNum;
+      const passingQuery =
+        'select * from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+        start +
+        '" and BusNumber = "' +
+        busnumber +
+        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+        stop +
+        '" and BusNumber = "' +
+        busnumber +
+        '") having BusNumber = "' +
+        busnumber +
+        '";';
+        connection.query(passingQuery, function(err, passingResult, fields){
+          eachRoute = passingResult[0].passingQuery;
+          obj.eachRoute = eachRoute;
+          listResult.push(obj);
+          if (tempList == BusNumResult.length - 1) {
+            res.send(listResult);
+          } else {
+            tempList += 1;
+          }
+        })
+    });
+  });
+});
+
 // ip: busNum
 // op: bus type
 app.get("/busType/:busNumber", (req, res) => {
@@ -113,7 +163,7 @@ app.get("/busType/:busNumber", (req, res) => {
 
 // ip: start&stop/distance
 // op: busNumber, price
-app.get("/price/:start&:stop/:distance", (req, res) => {
+app.get("/pricewithdis/:start&:stop/:distance", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   const distance = req.params.distance;
