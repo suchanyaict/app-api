@@ -238,16 +238,13 @@ app.get("/pricewithdis/:start&:stop/:distance", (req, res) => {
   });
 });
 
-app.get("/price/:busNum&:distance", (req, res) => {
-  const busNum = req.params.busNum;
+app.get("/price/:busNumber&:distance", (req, res) => {
+  const busNumber = req.params.busNumber;
   const distance = req.params.distance;
-  var price;
-  var busType = "";
-
+  var price = 0;
   const query =
-    'select Category from busInfo where BusNumber = "' + busNum + '";';
+    'select Category from busInfo where BusNumber = "' + busNumber + '";';
   connection.query(query, function (err, result, fields) {
-    busType = result.Category;
     if (result === "regular") {
       price = 8;
     } else if (result === "AC") {
@@ -287,7 +284,8 @@ app.get("/price/:busNum&:distance", (req, res) => {
         price = 25;
       }
     }
-    res.send(`${busType}`);
+
+    res.send(`${price} ${result}`);
   });
 });
 
