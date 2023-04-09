@@ -247,7 +247,8 @@ app.get("/price/:busNumber/:distance", (req, res) => {
   const query =
     'select Category from busInfo where BusNumber = "' + busNumber + '";';
   connection.query(query, function (err, result, fields) {
-    if (result === "regular") {
+    busType = result[0].Category;
+    if (busType === "regular") {
       price = 8;
     } else if (result === "AC") {
       if (distance >= 0 && distance <= 8) {
@@ -261,7 +262,7 @@ app.get("/price/:busNumber/:distance", (req, res) => {
       } else if (distance > 20) {
         price = 20;
       }
-    } else if (result === "Euro2" || result === "acPCB") {
+    } else if (busType === "Euro2" || busType === "acPCB") {
       if (distance >= 0 && distance <= 4) {
         price = 13;
       } else if (distance > 4 && distance <= 8) {
@@ -277,7 +278,7 @@ app.get("/price/:busNumber/:distance", (req, res) => {
       } else if (distance > 23) {
         price = 25;
       }
-    } else if (result === "NGV") {
+    } else if (busType === "NGV") {
       if (distance >= 0 && distance <= 4) {
         price = 15;
       } else if (distance > 4 && distance <= 6) {
@@ -287,7 +288,7 @@ app.get("/price/:busNumber/:distance", (req, res) => {
       }
     }
 
-    res.send(result[0].Category);
+    res.send(price);
   });
 });
 
