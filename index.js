@@ -241,7 +241,7 @@ app.get("/pricewithdis/:start&:stop/:distance", (req, res) => {
 app.get("/price/:busNum&:distance", (req, res) => {
   const busNum = req.params.busNum;
   const distance = req.params.distance;
-  var price = 0;
+  var price;
   var busType = "";
 
   const query =
