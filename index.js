@@ -246,7 +246,7 @@ app.get("/price/:busNum/:distance", (req, res) => {
   const Catequery =
     'select Category from busInfo where BusNumber = "' + busNum + '";';
   connection.query(Catequery, function (err, resultType, fields) {
-    busType = resultType[0].Category;
+    busType = resultType;
     if (busType === "regular") {
       price = 8;
     } else if (busType === "AC") {
@@ -286,7 +286,7 @@ app.get("/price/:busNum/:distance", (req, res) => {
         price = 25;
       }
     }
-    res.send(price);
+    res.send(`${price}`);
   });
 });
 
