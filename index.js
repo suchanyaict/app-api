@@ -286,8 +286,8 @@ app.get("/price/:busNum/:distance", (req, res) => {
         price = 25;
       }
     }
+    res.send(price);
   });
-  res.send(price);
 });
 
 app.get("/startandstop/", (req, res) => {
