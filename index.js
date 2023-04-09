@@ -241,16 +241,15 @@ app.get("/pricewithdis/:start&:stop/:distance", (req, res) => {
 app.get("/price/:busNum&:distance", (req, res) => {
   const busNum = req.params.busNum;
   const distance = req.params.distance;
-  const price = 0;
-  const busType = "";
+  var price = 0;
+  var busType = "";
 
   const query =
     'select Category from busInfo where BusNumber = "' + busNum + '";';
   connection.query(query, function (err, result, fields) {
-    busType = result;
-    if (busType === "regular") {
+    if (result === "regular") {
       price = 8;
-    } else if (busType === "AC") {
+    } else if (result === "AC") {
       if (distance >= 0 && distance <= 8) {
         price = 12;
       } else if (distance > 8 && distance <= 12) {
@@ -262,7 +261,7 @@ app.get("/price/:busNum&:distance", (req, res) => {
       } else if (distance > 20) {
         price = 20;
       }
-    } else if (busType === "Euro2" || busType === "acPCB") {
+    } else if (result === "Euro2" || result === "acPCB") {
       if (distance >= 0 && distance <= 4) {
         price = 13;
       } else if (distance > 4 && distance <= 8) {
@@ -278,7 +277,7 @@ app.get("/price/:busNum&:distance", (req, res) => {
       } else if (distance > 23) {
         price = 25;
       }
-    } else if (busType === "NGV") {
+    } else if (result === "NGV") {
       if (distance >= 0 && distance <= 4) {
         price = 15;
       } else if (distance > 4 && distance <= 6) {
