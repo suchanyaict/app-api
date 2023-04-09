@@ -287,7 +287,7 @@ app.get("/price/:busNumber/:distance", (req, res) => {
       }
     }
 
-    res.send(result);
+    res.send(result[0].Category);
   });
 });
 
