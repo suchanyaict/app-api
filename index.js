@@ -241,6 +241,7 @@ app.get("/pricewithdis/:start&:stop/:distance", (req, res) => {
 app.get("/price/:busNum/:distance", (req, res) => {
   const busNum = req.params.busNum;
   const distance = req.params.distance;
+  var price = 0;
 
   const Catequery =
     'select Category from busInfo where BusNumber = "' + busNum + '";';
@@ -285,8 +286,8 @@ app.get("/price/:busNum/:distance", (req, res) => {
         price = 25;
       }
     }
-    res.send(price);
   });
+  res.send(price);
 });
 
 app.get("/startandstop/", (req, res) => {
