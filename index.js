@@ -247,7 +247,6 @@ app.get("/price/:busNum&:distance", (req, res) => {
   const query =
     'select Category from busInfo where BusNumber = "' + busNum + '";';
   connection.query(query, function (err, result, fields) {
-    print(result);
     if (result === "regular") {
       price = 8;
     } else if (result === "AC") {
@@ -287,7 +286,7 @@ app.get("/price/:busNum&:distance", (req, res) => {
         price = 25;
       }
     }
-    res.send(`${price}`);
+    res.send(result);
   });
 });
 
