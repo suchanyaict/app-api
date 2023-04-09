@@ -238,6 +238,8 @@ app.get("/pricewithdis/:start&:stop/:distance", (req, res) => {
   });
 });
 
+// ip: bust type & distance
+// op: price
 app.get("/price/:busNumber&:distance", (req, res) => {
   const busNumber = req.params.busNumber;
   const distance = req.params.distance;
@@ -286,14 +288,6 @@ app.get("/price/:busNumber&:distance", (req, res) => {
     }
 
     res.send(`${price} ${result}`);
-  });
-});
-
-app.get("/startandstop/", (req, res) => {
-  const query =
-    "select distinct busnumber,concat(start_point, ' - ', stop_point) as ssPoint from busInfo;";
-  connection.query(query, function (err, result, fields) {
-    res.send(result);
   });
 });
 
