@@ -133,9 +133,9 @@ app.get("/price/:start&:stop/:distance", (req, res) => {
       var obj = new Object();
       busNum = entry.BusNumber;
       obj.busnumber = busNum;
-      const query =
+      const Catequery =
         'select Category from busInfo where BusNumber = "' + busNum + '";';
-      connection.query(query, function (err, resultType, fields) {
+      connection.query(Catequery, function (err, resultType, fields) {
         busType = resultType[0].Category;
         if (busType === "regular") {
           price = 8;
