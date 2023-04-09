@@ -135,16 +135,16 @@ app.get("/getPassingStop/:start&:stop/", (req, res) => {
         '") having BusNumber = "' +
         busnumber +
         '";';
-        connection.query(passingQuery, function(err, passingResult, fields){
-          eachRoute = passingResult[0].passingQuery;
-          obj.eachRoute = eachRoute;
-          listResult.push(obj);
-          if (tempList == BusNumResult.length - 1) {
-            res.send(listResult);
-          } else {
-            tempList += 1;
-          }
-        })
+      connection.query(passingQuery, function (err, passingResult, fields) {
+        eachRoute = passingResult[0].passingQuery;
+        obj.eachRoute = eachRoute;
+        listResult.push(obj);
+        if (tempList == BusNumResult.length - 1) {
+          res.send(listResult);
+        } else {
+          tempList += 1;
+        }
+      });
     });
   });
 });
@@ -235,6 +235,57 @@ app.get("/pricewithdis/:start&:stop/:distance", (req, res) => {
         }
       });
     });
+  });
+});
+
+app.get("/price/:busNum/:distance", (req, res) => {
+  const busNum = req.params.busNum;
+  const distance = req.params.distance;
+
+  const Catequery =
+    'select Category from busInfo where BusNumber = "' + busNum + '";';
+  connection.query(Catequery, function (err, resultType, fields) {
+    busType = resultType[0].Category;
+    if (busType === "regular") {
+      price = 8;
+    } else if (busType === "AC") {
+      if (distance >= 0 && distance <= 8) {
+        price = 12;
+      } else if (distance > 8 && distance <= 12) {
+        price = 14;
+      } else if (distance > 12 && distance <= 16) {
+        price = 16;
+      } else if (distance > 16 && distance <= 20) {
+        price = 18;
+      } else if (distance > 20) {
+        price = 20;
+      }
+    } else if (busType === "Euro2" || busType === "acPCB") {
+      if (distance >= 0 && distance <= 4) {
+        price = 13;
+      } else if (distance > 4 && distance <= 8) {
+        price = 15;
+      } else if (distance > 8 && distance <= 12) {
+        price = 17;
+      } else if (distance > 12 && distance <= 16) {
+        price = 19;
+      } else if (distance > 16 && distance <= 20) {
+        price = 21;
+      } else if (distance > 20 && distance <= 23) {
+        price = 23;
+      } else if (distance > 23) {
+        price = 25;
+      }
+    } else if (busType === "NGV") {
+      if (distance >= 0 && distance <= 4) {
+        price = 15;
+      } else if (distance > 4 && distance <= 6) {
+        price = 20;
+      } else if (distance > 16) {
+        price = 25;
+      }
+    }
+    res.send(price);
   });
 });
 
