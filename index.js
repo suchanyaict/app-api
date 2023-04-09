@@ -240,7 +240,7 @@ app.get("/pricewithdis/:start&:stop/:distance", (req, res) => {
 
 // ip: bust type & distance
 // op: price
-app.get("/price/:busNumber&:distance", (req, res) => {
+app.get("/price/:busNumber/:distance", (req, res) => {
   const busNumber = req.params.busNumber;
   const distance = req.params.distance;
   var price = 0;
@@ -287,7 +287,7 @@ app.get("/price/:busNumber&:distance", (req, res) => {
       }
     }
 
-    res.send(`${price} ${result}`);
+    res.send(`${result}`);
   });
 });
 
