@@ -244,10 +244,10 @@ app.get("/price/:busNum&:distance", (req, res) => {
   const price = 0;
   const busType = "";
 
-  const Catequery =
+  const query =
     'select Category from busInfo where BusNumber = "' + busNum + '";';
-  connection.query(Catequery, function (err, resultType, fields) {
-    busType = resultType;
+  connection.query(query, function (err, result, fields) {
+    busType = result;
     if (busType === "regular") {
       price = 8;
     } else if (busType === "AC") {
