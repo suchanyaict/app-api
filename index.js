@@ -338,7 +338,7 @@ app.get("/:start&:stop", (req, res) => {
         }
         listResult.push(obj);
         for (var i = 0; i < listResult.length; i++) {
-          console.log(listResult[i].newNumber);
+          console.log(listResult[i]);
         }
         // if (listResult[0].newNumber != []) {
         //   console.log("hi");
