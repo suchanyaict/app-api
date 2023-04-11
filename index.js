@@ -336,7 +336,7 @@ app.get("/:start&:stop", (req, res) => {
         } else {
           obj.newNumber = [];
         }
-        if (obj.newNumber === []) {
+        if (obj.newNumber == []) {
           newobj.busnumber = busNum;
         }
         availableList.push(newObj);
