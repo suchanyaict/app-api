@@ -330,13 +330,14 @@ app.get("/:start&:stop", (req, res) => {
         '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
         Number = resultNumber;
-        console.log(Number);
+        // console.log(Number);
         if (Number != 0) {
           obj.newNumber = Number;
         } else {
           obj.newNumber = [];
         }
-        if (obj.newNumber == []) {
+        listResult.push(obj);
+        if (listResult[0].newNumber == []) {
           console.log("hi");
           var newobj = new Object();
           newobj.busnumber = busNum;
@@ -344,12 +345,12 @@ app.get("/:start&:stop", (req, res) => {
         } else {
           console.log("yo");
         }
-        listResult.push(obj);
-        if (tempList == resultNum.length - 1) {
-          res.send(availableList);
-        } else {
-          tempList += 1;
-        }
+
+        // if (tempList == resultNum.length - 1) {
+        //   res.send(availableList);
+        // } else {
+        //   tempList += 1;
+        // }
       });
     });
   });
