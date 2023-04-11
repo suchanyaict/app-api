@@ -302,6 +302,7 @@ app.get("/:start&:stop", (req, res) => {
   var busNum;
   const listResult = [];
   var tempList = 0;
+  const availableList = [];
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -331,14 +332,19 @@ app.get("/:start&:stop", (req, res) => {
         console.log(Number);
         if (Number != 0) {
           obj.newNumber = Number;
-        }
-        else {
+        } else {
           obj.newNumber = 0;
         }
         listResult.push(obj);
+        for (var i = 0; i < listResult.length; i++) {
+          if (listResult[i].newNumber != 0) {
+            availableList[i] = listResult[i].busNum;
+          }
+        }
         // console.log()
+
         if (tempList == resultNum.length - 1) {
-          res.send(listResult);
+          res.send(availableList);
         } else {
           tempList += 1;
         }
