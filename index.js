@@ -300,6 +300,7 @@ app.get("/:start&:stop", (req, res) => {
   // const distance = req.params.distance;
   // console.log("test");
   var busNum;
+  var resNum;
   const listResult = [];
   var tempList = 0;
   const availableList = [];
@@ -335,18 +336,13 @@ app.get("/:start&:stop", (req, res) => {
         } else {
           obj.newNumber = [];
         }
-        listResult.push(obj);
-        for (var i = 0; i < listResult.length; i++) {
-          console.log(listResult[i].newNumber);
-          //   if (listResult[i].newNumber == 0) {
-          //     var obj = new Object();
-          //     obj.Busnumber = listResult[i].busNum;
-          //     availableList.push(obj);
-          //   }
+        if (obj.newNumber == []) {
+          newobj.busnumber = obj.busnumber;
         }
-
+        availableList.push(newObj);
+        listResult.push(obj);
         if (tempList == resultNum.length - 1) {
-          res.send(listResult);
+          res.send(availableList, listResult);
         } else {
           tempList += 1;
         }
