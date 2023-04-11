@@ -310,7 +310,6 @@ app.get("/busnumber/:start&:stop", (req, res) => {
   connection.query(busnumQuery, function (err, resultNum, fields) {
     resultNum.forEach(function (entry) {
       var obj = new Object();
-      var newobj = new Object();
       busNum = entry.BusNumber;
       const passingQuery =
         'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
@@ -338,6 +337,15 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           }
           return false;
         });
+        finalList.forEach(function (entry) {
+          finalNum = entry.BusNumber;
+          const findTypeQuery =
+            "select Category from busInfo where BusNumber = " + finalNum + ";";
+          connection.query(findTypeQuery, function (err, resultType, fields) {
+            obj.busType = resultType;
+          });
+        });
+        finalList.push(obj);
 
         if (tempList == resultNum.length - 1) {
           res.send(finalList);
