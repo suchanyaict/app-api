@@ -337,9 +337,6 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           return false;
         });
 
-        var newObj = new Object();
-        console.log(finalList);
-
         finalList.forEach(function (entry) {
           finalNum = entry.BusNumber;
           const findTypeQuery =
@@ -350,12 +347,13 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           });
         });
         finalList.push(newObj);
+        res.send(finalList);
 
-        if (tempList == resultNum.length - 1) {
-          res.send(finalList);
-        } else {
-          tempList += 1;
-        }
+        // if (tempList == resultNum.length - 1) {
+        //   res.send(finalList);
+        // } else {
+        //   tempList += 1;
+        // }
       });
     });
   });
