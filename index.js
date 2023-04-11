@@ -337,16 +337,18 @@ app.get("/:start&:stop", (req, res) => {
           obj.newNumber = [];
         }
         listResult.push(obj);
-        if (listResult[0].newNumber != []) {
-          console.log("hi");
-          var newobj = new Object();
-          newobj.busnumber = busNum;
-          availableList.push(newobj);
-        } else {
-          console.log("yo");
+        for (var i = 0; i < listResult.length; i++) {
+          console.log(listResult[i].newNumber);
         }
-        res.send(availableList);
-        
+        // if (listResult[0].newNumber != []) {
+        //   console.log("hi");
+        //   var newobj = new Object();
+        //   newobj.busnumber = busNum;
+        //   availableList.push(newobj);
+        // } else {
+        //   console.log("yo");
+        // }
+        // res.send(availableList);
 
         // if (tempList == resultNum.length - 1) {
         //   res.send(availableList);
