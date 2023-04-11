@@ -332,10 +332,10 @@ app.get("/:start&:stop", (req, res) => {
       connection.query(passingQuery, function (err, resultNumber, fields) {
         Number = resultNumber;
         if (Number != 0) {
-          obj.busnumber = Number[0].BusNumber;
+          obj.BusNumber = Number[0].BusNumber;
           // newobj.busnumber = Number[0].BusNumber;
         } else {
-          delete obj.newNumber;
+          // delete obj.newNumber;
         }
         listResult.push(obj);
         // availableList.push(newobj);
