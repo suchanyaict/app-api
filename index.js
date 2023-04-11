@@ -336,13 +336,14 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           }
           return false;
         });
+        var newObj = new Object();
 
         finalList.forEach(function (entry) {
           finalNum = entry.BusNumber;
           const findTypeQuery =
             "select Category from busInfo where BusNumber = " + finalNum + ";";
           connection.query(findTypeQuery, function (err, resultType, fields) {
-            var newObj = new Object();
+            
             newObj.busType = resultType;
           });
         });
