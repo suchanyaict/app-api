@@ -342,13 +342,14 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           const findTypeQuery =
             "select Category from busInfo where BusNumber = " + finalNum + ";";
           connection.query(findTypeQuery, function (err, resultType, fields) {
-            obj.busType = resultType;
+            var newObj = new Object();
+            newObj.busType = resultType;
           });
         });
-        finalList.push(obj);
+        finalList.push(newObj);
 
         if (tempList == resultNum.length - 1) {
-          res.send(findTypeQuery);
+          res.send(finalList);
         } else {
           tempList += 1;
         }
