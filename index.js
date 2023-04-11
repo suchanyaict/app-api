@@ -349,6 +349,19 @@ app.get("/:start&:stop", (req, res) => {
         //   console.log("yo");
         // }
         // res.send(availableList);
+        // function clearEmpties(o) {
+          for (var k in listResult) {
+            if (!listResult[k] || typeof listResult[k] !== "object") {
+              continue; // If null or not an object, skip to the next iteration
+            }
+
+            // The property is an object
+            if (Object.keys(listResult[k]).length === 0) {
+              delete listResult[k]; // The object had no properties, so delete that property
+            }
+            return listResult;
+          }
+        // }
 
         if (tempList == resultNum.length - 1) {
           res.send(listResult);
