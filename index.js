@@ -327,16 +327,17 @@ app.get("/:start&:stop", (req, res) => {
         busNum +
         '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
-        Number = resultNumber[0].BusNumber;
-        if (Number != 0) {
-          obj.newNumber = Number;
-        }
-        listResult.push(obj);
-        if (tempList == resultNum.length - 1) {
-          res.send(listResult);
-        } else {
-          tempList += 1;
-        }
+        Number = resultNumber;
+        console.log(Number);
+        // if (Number != 0) {
+        //   obj.newNumber = Number;
+        // }
+        // listResult.push(obj);
+        // if (tempList == resultNum.length - 1) {
+        //   res.send(listResult);
+        // } else {
+        //   tempList += 1;
+        // }
       });
     });
   });
