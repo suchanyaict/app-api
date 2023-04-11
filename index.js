@@ -320,6 +320,7 @@ app.get("/:start&:stop", (req, res) => {
   connection.query(busnumQuery, function (err, resultNum, fields) {
     console.log(resultNum);
     resultNum.forEach(function (entry) {
+      var obj = new Object();
       busNum = entry.busNumber;
       obj.busnumber = busNum;
       listResult.push(obj);
