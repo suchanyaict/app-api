@@ -315,7 +315,7 @@ app.get("/:start&:stop", (req, res) => {
     resultNum.forEach(function (entry) {
       var obj = new Object();
       busNum = entry.BusNumber;
-      obj.busnumber = busNum;
+      // obj.busnumber = busNum;
       const passingQuery =
         'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
         start +
