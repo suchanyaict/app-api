@@ -337,7 +337,7 @@ app.get("/:start&:stop", (req, res) => {
           obj.newNumber = [];
         }
         listResult.push(obj);
-        if (listResult[0].newNumber == []) {
+        if (listResult[0].newNumber != []) {
           console.log("hi");
           var newobj = new Object();
           newobj.busnumber = busNum;
