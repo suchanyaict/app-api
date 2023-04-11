@@ -324,9 +324,8 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         busNum +
         '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
-        Number = resultNumber;
-        if (Number != 0) {
-          obj.BusNumber = Number[0].BusNumber;
+        if (resultNumber != 0) {
+          obj.BusNumber = resultNumber[0].BusNumber;
         } else {
         }
         listResult.push(obj);
@@ -337,15 +336,15 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           }
           return false;
         });
-        finalList.forEach(function (entry) {
-          finalNum = entry.BusNumber;
-          const findTypeQuery =
-            "select Category from busInfo where BusNumber = " + finalNum + ";";
-          connection.query(findTypeQuery, function (err, resultType, fields) {
-            obj.busType = resultType;
-          });
-        });
-        finalList.push(obj);
+        // finalList.forEach(function (entry) {
+        //   finalNum = entry.BusNumber;
+        //   const findTypeQuery =
+        //     "select Category from busInfo where BusNumber = " + finalNum + ";";
+        //   connection.query(findTypeQuery, function (err, resultType, fields) {
+        //     obj.busType = resultType;
+        //   });
+        // });
+        // finalList.push(obj);
 
         if (tempList == resultNum.length - 1) {
           res.send(finalList);
