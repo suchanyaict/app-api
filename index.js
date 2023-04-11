@@ -337,23 +337,23 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           return false;
         });
 
-        finalList.forEach(function (entry) {
-          finalNum = entry.BusNumber;
-          const findTypeQuery =
-            "select Category from busInfo where BusNumber = " + finalNum + ";";
-          connection.query(findTypeQuery, function (err, resultType, fields) {
-            console.log(resultType[0].Category);
-            newObj.busType = resultType[0].Category;
-          });
-        });
-        finalList.push(newObj);
-        res.send(finalList);
+        // finalList.forEach(function (entry) {
+        //   finalNum = entry.BusNumber;
+        //   const findTypeQuery =
+        //     "select Category from busInfo where BusNumber = " + finalNum + ";";
+        //   connection.query(findTypeQuery, function (err, resultType, fields) {
+        //     console.log(resultType[0].Category);
+        //     newObj.busType = resultType[0].Category;
+        //   });
+        // });
+        // finalList.push(newObj);
+        // res.send(finalList);
 
-        // if (tempList == resultNum.length - 1) {
-        //   res.send(finalList);
-        // } else {
-        //   tempList += 1;
-        // }
+        if (tempList == resultNum.length - 1) {
+          res.send(finalList);
+        } else {
+          tempList += 1;
+        }
       });
     });
   });
