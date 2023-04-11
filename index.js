@@ -332,6 +332,9 @@ app.get("/:start&:stop", (req, res) => {
         if (Number != 0) {
           obj.newNumber = Number;
         }
+        else {
+          obj.newNumber = 0;
+        }
         listResult.push(obj);
         // console.log()
         if (tempList == resultNum.length - 1) {
