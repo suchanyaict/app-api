@@ -314,6 +314,7 @@ app.get("/:start&:stop", (req, res) => {
   connection.query(busnumQuery, function (err, resultNum, fields) {
     resultNum.forEach(function (entry) {
       var obj = new Object();
+      var newobj = new Object();
       busNum = entry.BusNumber;
       // obj.busnumber = busNum;
       const passingQuery =
@@ -330,13 +331,15 @@ app.get("/:start&:stop", (req, res) => {
         '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
         Number = resultNumber;
-        // console.log(Number);
         if (Number != 0) {
-          obj.newNumber = Number;
+          obj.newNumber = Number[0].BusNumber;
+          // newobj.busnumber = Number[0].BusNumber;
         } else {
           obj.newNumber = [];
         }
         listResult.push(obj);
+        // availableList.push(newobj);
+
         // if (listResult[0].newNumber != []) {
         //   console.log("hi");
         //   var newobj = new Object();
