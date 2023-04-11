@@ -329,15 +329,15 @@ app.get("/:start&:stop", (req, res) => {
       connection.query(passingQuery, function (err, resultNumber, fields) {
         Number = resultNumber;
         console.log(Number);
-        // if (Number != 0) {
-        //   obj.newNumber = Number;
-        // }
-        // listResult.push(obj);
-        // if (tempList == resultNum.length - 1) {
-        //   res.send(listResult);
-        // } else {
-        //   tempList += 1;
-        // }
+        if (Number != 0) {
+          obj.newNumber = Number;
+        }
+        listResult.push(obj);
+        if (tempList == resultNum.length - 1) {
+          res.send(listResult);
+        } else {
+          tempList += 1;
+        }
       });
     });
   });
