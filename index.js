@@ -337,11 +337,10 @@ app.get("/:start&:stop", (req, res) => {
         }
         listResult.push(obj);
         for (var i = 0; i < listResult.length; i++) {
-          if (listResult[i].newNumber != 0) {
-            availableList[i] = listResult[i].busNum;
+          if (listResult[i].newNumber == 0) {
+            delete listResult.Number;
           }
         }
-        // console.log()
 
         if (tempList == resultNum.length - 1) {
           res.send(availableList);
