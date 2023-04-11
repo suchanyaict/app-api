@@ -338,7 +338,7 @@ app.get("/:start&:stop", (req, res) => {
         listResult.push(obj);
         // console.log()
         if (tempList == resultNum.length - 1) {
-          res.send(listResult[0]);
+          res.send(listResult);
         } else {
           tempList += 1;
         }
