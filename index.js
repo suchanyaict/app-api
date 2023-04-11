@@ -333,8 +333,9 @@ app.get("/:start&:stop", (req, res) => {
           obj.newNumber = Number;
         }
         listResult.push(obj);
+        // console.log()
         if (tempList == resultNum.length - 1) {
-          res.send(listResult);
+          res.send(listResult[0]);
         } else {
           tempList += 1;
         }
