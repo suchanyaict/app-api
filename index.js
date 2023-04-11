@@ -337,9 +337,12 @@ app.get("/:start&:stop", (req, res) => {
           obj.newNumber = [];
         }
         if (obj.newNumber == []) {
+          console.log("hi");
           var newobj = new Object();
           newobj.busnumber = busNum;
           availableList.push(newobj);
+        } else {
+          console.log("yo");
         }
         listResult.push(obj);
         if (tempList == resultNum.length - 1) {
