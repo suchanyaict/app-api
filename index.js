@@ -336,6 +336,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           }
           return false;
         });
+
         var newObj = new Object();
 
         finalList.forEach(function (entry) {
@@ -343,7 +344,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           const findTypeQuery =
             "select Category from busInfo where BusNumber = " + finalNum + ";";
           connection.query(findTypeQuery, function (err, resultType, fields) {
-            
+            console.log(resultType);
             newObj.busType = resultType;
           });
         });
