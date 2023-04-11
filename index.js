@@ -337,9 +337,6 @@ app.get("/:start&:stop", (req, res) => {
           obj.newNumber = [];
         }
         listResult.push(obj);
-        for (var i = 0; i < listResult.length; i++) {
-          res.send(listResult[i]);
-        }
         // if (listResult[0].newNumber != []) {
         //   console.log("hi");
         //   var newobj = new Object();
@@ -350,11 +347,11 @@ app.get("/:start&:stop", (req, res) => {
         // }
         // res.send(availableList);
 
-        // if (tempList == resultNum.length - 1) {
-        //   res.send(availableList);
-        // } else {
-        //   tempList += 1;
-        // }
+        if (tempList == resultNum.length - 1) {
+          res.send(listResult);
+        } else {
+          tempList += 1;
+        }
       });
     });
   });
