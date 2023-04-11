@@ -294,16 +294,12 @@ app.get("/price/:busNumber/:distance", (req, res) => {
 
 // ip: start&stop
 // op: BusNumber
-app.get("/:start&:stop", (req, res) => {
+app.get("/busnumber/:start&:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
-  // const distance = req.params.distance;
-  // console.log("test");
   var busNum;
-  var resNum;
   const listResult = [];
   var tempList = 0;
-  const availableList = [];
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -316,7 +312,6 @@ app.get("/:start&:stop", (req, res) => {
       var obj = new Object();
       var newobj = new Object();
       busNum = entry.BusNumber;
-      // obj.busnumber = busNum;
       const passingQuery =
         'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
         start +
@@ -333,31 +328,16 @@ app.get("/:start&:stop", (req, res) => {
         Number = resultNumber;
         if (Number != 0) {
           obj.BusNumber = Number[0].BusNumber;
-          // newobj.busnumber = Number[0].BusNumber;
         } else {
-          // delete obj.newNumber;
         }
         listResult.push(obj);
 
-        const finalList = listResult.filter(element => {
+        const finalList = listResult.filter((element) => {
           if (Object.keys(element).length !== 0) {
             return true;
           }
           return false;
         });
-        // availableList.push(newobj);
-
-        // if (listResult[0].newNumber != []) {
-        //   console.log("hi");
-        //   var newobj = new Object();
-        //   newobj.busnumber = busNum;
-        //   availableList.push(newobj);
-        // } else {
-        //   console.log("yo");
-        // }
-        // res.send(availableList);
-        // function clearEmpties(o) {
-        // }
 
         if (tempList == resultNum.length - 1) {
           res.send(finalList);
