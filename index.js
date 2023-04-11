@@ -336,13 +336,13 @@ app.get("/:start&:stop", (req, res) => {
           obj.newNumber = 0;
         }
         listResult.push(obj);
-        for (var i = 0; i < listResult.length; i++) {
-          if (listResult[i].newNumber == 0) {
-            var obj = new Object();
-            obj.Busnumber = listResult[i].busNum;
-            availableList.push(obj);
-          }
-        }
+        // for (var i = 0; i < listResult.length; i++) {
+        //   if (listResult[i].newNumber == 0) {
+        //     var obj = new Object();
+        //     obj.Busnumber = listResult[i].busNum;
+        //     availableList.push(obj);
+        //   }
+        // }
 
         if (tempList == resultNum.length - 1) {
           res.send(availableList);
