@@ -292,4 +292,48 @@ app.get("/price/:busNumber/:distance", (req, res) => {
   });
 });
 
+// ip: start&stop
+// op: BusNumber
+app.get("/:start&:stop", (req, res) => {
+  const start = req.params.start;
+  const stop = req.params.stop;
+  const listResult = [];
+  const busnumQuery =
+    'select BusNumber from stationInfo where StationName in ("' +
+    start +
+    '","' +
+    stop +
+    '") GROUP BY BusNumber having COUNT(StationName) > 1;';
+
+  connection.query(busnumQuery, function (err, resultNum, fields) {
+    console.log(resultNum);
+    resultNum.forEach(function (entry) {
+      busNum = entry.busNumber;
+      const passingQuery =
+        'select * from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+        start +
+        '" and BusNumber = "' +
+        busNum +
+        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+        stop +
+        '" and BusNumber = "' +
+        busNum +
+        '") having BusNumber = "' +
+        busNum +
+        '";';
+      connection.query(passingQuery, function (err, passingResult, fields) {
+        console.log(passingResult);
+        // eachRoute = passingResult[0].passingQuery;
+        // obj.eachRoute = eachRoute;
+        // listResult.push(obj);
+        // if (tempList == BusNumResult.length - 1) {
+        //   res.send(listResult);
+        // } else {
+        //   tempList += 1;
+        // }
+      });
+    });
+  });
+});
+
 app.listen(process.env.PORT || 3000);
