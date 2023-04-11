@@ -297,7 +297,7 @@ app.get("/price/:busNumber/:distance", (req, res) => {
 app.get("/:start&:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
-  const listResult = [];
+  // const listResult = [];
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
     start +
@@ -321,7 +321,7 @@ app.get("/:start&:stop", (req, res) => {
     console.log(resultNum);
     resultNum.forEach(function (entry) {
       busNum = entry.busNumber;
-      console.log(busNum);
+      console.log(entry.busNumber);
       // connection.query(passingQuery, function (err, passingResult, fields) {
       // console.log(passingResult);
       // eachRoute = passingResult[0].passingQuery;
