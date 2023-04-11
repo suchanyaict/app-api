@@ -345,7 +345,7 @@ app.get("/:start&:stop", (req, res) => {
         // }
 
         if (tempList == resultNum.length - 1) {
-          res.send(availableList);
+          res.send(listResult);
         } else {
           tempList += 1;
         }
