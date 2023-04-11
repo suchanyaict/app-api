@@ -338,6 +338,13 @@ app.get("/:start&:stop", (req, res) => {
           // delete obj.newNumber;
         }
         listResult.push(obj);
+
+        const finalList = listResult.filter(element => {
+          if (Object.keys(element).length !== 0) {
+            return true;
+          }
+          return false;
+        });
         // availableList.push(newobj);
 
         // if (listResult[0].newNumber != []) {
@@ -353,7 +360,7 @@ app.get("/:start&:stop", (req, res) => {
         // }
 
         if (tempList == resultNum.length - 1) {
-          res.send(listResult);
+          res.send(finalList);
         } else {
           tempList += 1;
         }
