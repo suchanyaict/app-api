@@ -342,7 +342,7 @@ app.get("/:start&:stop", (req, res) => {
         availableList.push(newObj);
         listResult.push(obj);
         if (tempList == resultNum.length - 1) {
-          res.send(availableList, listResult);
+          res.send(availableList);
         } else {
           tempList += 1;
         }
