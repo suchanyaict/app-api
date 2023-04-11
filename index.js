@@ -338,7 +338,9 @@ app.get("/:start&:stop", (req, res) => {
         listResult.push(obj);
         for (var i = 0; i < listResult.length; i++) {
           if (listResult[i].newNumber == 0) {
-            delete listResult.Number;
+            var obj = new Object();
+            obj.Busnumber = listResult[i].busNum;
+            availableList.push(obj);
           }
         }
 
