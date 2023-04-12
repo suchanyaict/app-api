@@ -344,6 +344,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
             "';";
           console.log(busnumQuery);
           connection.query(busnumQuery, function (err, result, fields) {
+            console.log("teeth")
             console.log(result);
           });
         });
