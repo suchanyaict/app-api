@@ -379,6 +379,17 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     });
     console.log("ttetee")
   console.log(global.listTest)
+  global.listTest.forEach(function (entry){
+    const busnumQuery =
+    "select BusNumber, Category from busInfo where BusNumber = '" +
+    entry.BusNumber +
+    "';";
+  console.log(busnumQuery);
+  connection.query(busnumQuery, function (err, result, fields) {
+    console.log("teeth")
+    console.log(result);
+  });
+  })
   res.send(listTest);
   });
 });
