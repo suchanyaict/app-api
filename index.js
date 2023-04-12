@@ -341,6 +341,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           const busnumQuery =
         "select BusNumber, Category from busInfo where BusNumber = " +
         entry.BusNumber + ";";
+        console.log(busnumQuery)
           connection.query(busnumQuery, function(err, result, fields) {
             console.log(result);
           })
