@@ -416,4 +416,55 @@ app.get("/busnumber/:start&:stop", (req, res) => {
   });
 });
 
+app.get("/oldbusnumber/:start&:stop", (req, res) => {
+  const start = req.params.start;
+  const stop = req.params.stop;
+  var busNum;
+  listResult = [];
+  var tempList = 0;
+
+  const busnumQuery =
+    'select BusNumber from stationInfo where StationName in ("' +
+    start +
+    '","' +
+    stop +
+    '") GROUP BY BusNumber having COUNT(StationName) > 1;';
+  connection.query(busnumQuery, function (err, resultNum, fields) {
+    resultNum.forEach(function (entry) {
+      var obj = new Object();
+      busNum = entry.BusNumber;
+      const passingQuery =
+        'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+        start +
+        '" and BusNumber = "' +
+        busNum +
+        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+        stop +
+        '" and BusNumber = "' +
+        busNum +
+        '") having BusNumber = "' +
+        busNum +
+        '";';
+      connection.query(passingQuery, function (err, resultNumber, fields) {
+        if (resultNumber != 0) {
+          obj.BusNumber = resultNumber[0].BusNumber;
+        }
+        listResult.push(obj);
+        const finalList = listResult.filter((element) => {
+          if (Object.keys(element).length !== 0) {
+            return true;
+          }
+          return false;
+        });
+
+        if (tempList == resultNum.length - 1) {
+          res.send(finalList);
+        } else {
+          tempList += 1;
+        }
+      });
+    });
+  });
+});
+
 app.listen(process.env.PORT || 3000);
