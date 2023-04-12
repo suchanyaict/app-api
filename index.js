@@ -394,10 +394,10 @@ app.get("/test/:start&:stop", (req, res) => {
         console.log("hi");
         console.log(resultNumber);
         // if (resultNumber != 0) {
-        obj.BusNumber = resultNumber[0].BusNumber;
-        // }
-        listResult.push(obj);
-        console.log(listResult);
+        // obj.BusNumber = resultNumber[0].BusNumber;
+        // // }
+        // listResult.push(obj);
+        // console.log(listResult);
 
         // const finalList = listResult.filter((element) => {
         //   if (Object.keys(element).length !== 0) {
