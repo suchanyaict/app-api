@@ -336,20 +336,20 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           }
           return false;
         });
-        console.log(finalList);
-        console.log("yo");
+        // console.log(finalList);
+        // console.log("yo");
 
-        finalList.forEach(function (entry) {
-          finalNum = entry.BusNumber;
-          console.log(finalNum);
-          console.log("hi");
+        // finalList.forEach(function (entry) {
+        //   finalNum = entry.BusNumber;
+        //   console.log(finalNum);
+        //   console.log("hi");
           //   const findTypeQuery =
           //     "select Category from busInfo where BusNumber = " + finalNum + ";";
           //   connection.query(findTypeQuery, function (err, resultType, fields) {
           //     console.log(resultType[0].Category);
           //     newObj.busType = resultType[0].Category;
           //   });
-        });
+        // });
         // finalList.push(newObj);
         // res.send(finalList);
 
