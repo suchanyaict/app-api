@@ -364,6 +364,7 @@ app.get("/test/:start&:stop", (req, res) => {
   const stop = req.params.stop;
   var busNum;
   const listResult = [];
+  const finalList = [];
   var tempList = 0;
 
   const busnumQuery =
@@ -395,24 +396,11 @@ app.get("/test/:start&:stop", (req, res) => {
         }
         listResult.push(obj);
 
-        const finalList = listResult.filter((element) => {
+        finalList = listResult.filter((element) => {
           if (Object.keys(element).length !== 0) {
             return true;
           }
           return false;
-        });
-
-        console.log(finalList);
-        finalList.forEach(function (entry) {
-          console.log(entry);
-          finalNum = '"'+entry.BusNumber+'"' ;
-          const findTypeQuery =
-            "select Category from busInfo where BusNumber = " + finalNum + ";";
-          console.log(findTypeQuery);
-          connection.query(findTypeQuery, function (err, resultType, fields) {
-            console.log(resultType)
-          })
-
         });
 
         // finalList.forEach(function (entry) {
@@ -430,7 +418,7 @@ app.get("/test/:start&:stop", (req, res) => {
 
         // console.log("hi");
 
-        res.send(finalList);
+        // res.send(finalList);
 
         // if (tempList == resultNum.length - 1) {
         //   res.send(finalList);
@@ -438,6 +426,17 @@ app.get("/test/:start&:stop", (req, res) => {
         //   tempList += 1;
         // }
       });
+    });
+  });
+  console.log(finalList);
+  finalList.forEach(function (entry) {
+    console.log(entry);
+    finalNum = '"' + entry.BusNumber + '"';
+    const findTypeQuery =
+      "select Category from busInfo where BusNumber = " + finalNum + ";";
+    console.log(findTypeQuery);
+    connection.query(findTypeQuery, function (err, resultType, fields) {
+      console.log(resultType);
     });
   });
 });
