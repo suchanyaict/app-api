@@ -409,9 +409,10 @@ app.get("/test/:start&:stop", (req, res) => {
           connection.query(findTypeQuery, function (err, resultType, fields) {
             console.log(resultType[0].Category);
             newObj.busType = resultType[0].Category;
+            finalList.push(newObj);
           });
         });
-        finalList.push(newObj);
+        
         console.log('hi');
         console.log(finalList);
         res.send(finalList);
