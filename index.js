@@ -337,15 +337,17 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           return false;
         });
 
-        // finalList.forEach(function (entry) {
-        //   finalNum = entry.BusNumber;
-        //   const findTypeQuery =
-        //     "select Category from busInfo where BusNumber = " + finalNum + ";";
-        //   connection.query(findTypeQuery, function (err, resultType, fields) {
-        //     console.log(resultType[0].Category);
-        //     newObj.busType = resultType[0].Category;
-        //   });
-        // });
+        finalList.forEach(function (entry) {
+          finalNum = entry.BusNumber;
+          console.log(finalNum);
+          console.log("hi");
+          //   const findTypeQuery =
+          //     "select Category from busInfo where BusNumber = " + finalNum + ";";
+          //   connection.query(findTypeQuery, function (err, resultType, fields) {
+          //     console.log(resultType[0].Category);
+          //     newObj.busType = resultType[0].Category;
+          //   });
+        });
         // finalList.push(newObj);
         // res.send(finalList);
 
