@@ -364,7 +364,7 @@ app.get("/test/:start&:stop", (req, res) => {
   const stop = req.params.stop;
   var busNum;
   var listResult = [];
-  const finalList = [];
+  var finalList = [];
   var tempList = 0;
 
   const busnumQuery =
