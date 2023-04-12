@@ -363,7 +363,7 @@ app.get("/test/:start&:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   var busNum;
-  const listResult = [];
+  var listResult = [];
   const finalList = [];
   var tempList = 0;
 
@@ -396,12 +396,13 @@ app.get("/test/:start&:stop", (req, res) => {
         }
         listResult.push(obj);
 
-        finalList = listResult.filter((element) => {
+         finalList = listResult.filter((element) => {
           if (Object.keys(element).length !== 0) {
             return true;
           }
           return false;
         });
+
 
         // finalList.forEach(function (entry) {
         //   finalNum = entry.BusNumber;
