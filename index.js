@@ -336,6 +336,8 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           }
           return false;
         });
+        console.log(finalList);
+        console.log("yo");
 
         finalList.forEach(function (entry) {
           finalNum = entry.BusNumber;
