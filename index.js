@@ -405,7 +405,7 @@ app.get("/test/:start&:stop", (req, res) => {
         console.log(finalList);
         finalList.forEach(function (entry) {
           console.log(entry);
-          finalNum = entry.BusNumber;
+          finalNum = '"' + entry.BusNumber + '"';
           const findTypeQuery =
             "select Category from busInfo where BusNumber = " + finalNum + ";";
           console.log(findTypeQuery);
