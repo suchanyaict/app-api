@@ -392,8 +392,7 @@ app.get("/test/:start&:stop", (req, res) => {
       connection.query(passingQuery, function (err, resultNumber, fields) {
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
-        } else {
-        }
+        } 
         listResult.push(obj);
 
         const finalList = listResult.filter((element) => {
@@ -402,6 +401,9 @@ app.get("/test/:start&:stop", (req, res) => {
           }
           return false;
         });
+        
+        console.log(finalList);
+        finalList.forEach(function (entry) {console.log(entry)});
 
         // finalList.forEach(function (entry) {
         //   finalNum = entry.BusNumber;
@@ -417,7 +419,7 @@ app.get("/test/:start&:stop", (req, res) => {
         // });
 
         // console.log("hi");
-        console.log(finalList);
+        
         res.send(finalList);
 
         // if (tempList == resultNum.length - 1) {
