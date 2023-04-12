@@ -301,9 +301,9 @@ app.get("/price/:busType/:distance", (req, res) => {
   // connection.query(query, function (err, result, fields) {
   // busType = result[0].Category;
   console.log(busType);
-  if (busType === "regular") {
+  if (busType == "regular") {
     price = 8;
-  } else if (result === "AC") {
+  } else if (result == "AC") {
     if (distance >= 0 && distance <= 8) {
       price = 12;
     } else if (distance > 8 && distance <= 12) {
@@ -315,7 +315,7 @@ app.get("/price/:busType/:distance", (req, res) => {
     } else if (distance > 20) {
       price = 20;
     }
-  } else if (busType === "Euro2" || busType === "acPCB") {
+  } else if (busType == "Euro2" || busType == "acPCB") {
     if (distance >= 0 && distance <= 4) {
       price = 13;
     } else if (distance > 4 && distance <= 8) {
@@ -331,7 +331,7 @@ app.get("/price/:busType/:distance", (req, res) => {
     } else if (distance > 23) {
       price = 25;
     }
-  } else if (busType === "NGV") {
+  } else if (busType == "NGV") {
     if (distance >= 0 && distance <= 4) {
       price = 15;
     } else if (distance > 4 && distance <= 6) {
