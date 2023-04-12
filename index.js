@@ -393,17 +393,18 @@ app.get("/test/:start&:stop", (req, res) => {
       connection.query(passingQuery, function (err, resultNumber, fields) {
         console.log(resultNumber);
         // if (resultNumber != 0) {
-          obj.BusNumber = resultNumber[0].BusNumber;
+        obj.BusNumber = resultNumber[0].BusNumber;
         // }
         listResult.push(obj);
+        console.log(listResult);
 
-        const finalList = listResult.filter((element) => {
-          if (Object.keys(element).length !== 0) {
-            return true;
-          }
-          return false;
-        });
-        console.log(finalList);
+        // const finalList = listResult.filter((element) => {
+        //   if (Object.keys(element).length !== 0) {
+        //     return true;
+        //   }
+        //   return false;
+        // });
+        // console.log(finalList);
 
         // finalList.forEach(function (entry) {
         //   finalNum = entry.BusNumber;
