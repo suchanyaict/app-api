@@ -307,6 +307,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     '","' +
     stop +
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
+  console.log(busnumQuery);
   connection.query(busnumQuery, function (err, resultNum, fields) {
     resultNum.forEach(function (entry) {
       var obj = new Object();
@@ -343,21 +344,21 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         //   finalNum = entry.BusNumber;
         //   console.log(finalNum);
         //   console.log("hi");
-          //   const findTypeQuery =
-          //     "select Category from busInfo where BusNumber = " + finalNum + ";";
-          //   connection.query(findTypeQuery, function (err, resultType, fields) {
-          //     console.log(resultType[0].Category);
-          //     newObj.busType = resultType[0].Category;
-          //   });
+        //   const findTypeQuery =
+        //     "select Category from busInfo where BusNumber = " + finalNum + ";";
+        //   connection.query(findTypeQuery, function (err, resultType, fields) {
+        //     console.log(resultType[0].Category);
+        //     newObj.busType = resultType[0].Category;
+        //   });
         // });
         // finalList.push(newObj);
-        res.send(finalList);
+        // res.send(finalList);
 
-        // if (tempList == resultNum.length - 1) {
-        //   res.send(finalList);
-        // } else {
-        //   tempList += 1;
-        // }
+        if (tempList == resultNum.length - 1) {
+          res.send(finalList);
+        } else {
+          tempList += 1;
+        }
       });
     });
   });
