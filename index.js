@@ -415,7 +415,7 @@ app.get("/test/:start&:stop", (req, res) => {
           });
         });
 
-        console.log("hi");
+        // console.log("hi");
         console.log(finalList);
         res.send(finalList);
 
