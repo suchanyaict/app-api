@@ -389,7 +389,9 @@ app.get("/busnumber/:start&:stop", (req, res) => {
   connection.query(busnumQuery, function (err, result, fields) {
     console.log("teeth")
     console.log(result);
-    global.eiei.push(result)
+    result.forEach(function(entry){
+      global.eiei.push(entry)
+    })
   });
   })
   res.send(global.eiei);
