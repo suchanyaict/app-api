@@ -396,6 +396,7 @@ app.get("/test/:start&:stop", (req, res) => {
         } else {
         }
         listResult.push(obj);
+        console.log(listResult);
 
         const finalList = listResult.filter((element) => {
           if (Object.keys(element).length !== 0) {
