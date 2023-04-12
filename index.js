@@ -300,6 +300,7 @@ app.get("/price/:busType/:distance", (req, res) => {
   // 'select Category from busInfo where BusNumber = "' + busNumber + '";';
   // connection.query(query, function (err, result, fields) {
   // busType = result[0].Category;
+  console.log(busType);
   if (busType === "regular") {
     price = 8;
   } else if (result === "AC") {
