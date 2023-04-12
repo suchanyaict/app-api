@@ -307,11 +307,11 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     '","' +
     stop +
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
-  console.log(busnumQuery);
   connection.query(busnumQuery, function (err, resultNum, fields) {
     resultNum.forEach(function (entry) {
       var obj = new Object();
       busNum = entry.BusNumber;
+      console.log("BUs number: "+ busNum)
       const passingQuery =
         'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
         start +
@@ -324,8 +324,6 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         '") having BusNumber = "' +
         busNum +
         '";';
-        console.log("test");
-      console.log(passingQuery);
       connection.query(passingQuery, function (err, resultNumber, fields) {
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
@@ -339,8 +337,6 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           }
           return false;
         });
-        console.log(finalList);
-        console.log("yo");
 
         // finalList.forEach(function (entry) {
         //   finalNum = entry.BusNumber;
