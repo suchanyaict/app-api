@@ -390,6 +390,8 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     console.log("teeth")
     console.log(result);
     result.forEach(function(entry){
+      console.log("tooth")
+      console.log(entry)
       global.eiei.push(entry)
     })
   });
