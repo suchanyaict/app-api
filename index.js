@@ -409,14 +409,15 @@ app.get("/test/:start&:stop", (req, res) => {
           connection.query(findTypeQuery, function (err, resultType, fields) {
             console.log(resultType[0].Category);
             obj.busType = resultType[0].Category;
+            console.log("yo");
+            console.log(obj);
             finalList.push(obj);
           });
         });
-        
-        console.log('hi');
+
+        console.log("hi");
         console.log(finalList);
         res.send(finalList);
-        
 
         // if (tempList == resultNum.length - 1) {
         //   res.send(finalList);
