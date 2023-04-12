@@ -400,7 +400,6 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         }
       });
     });
-    var obj = new Object();
     global.listTest.forEach(function (entry) {
       const busnumQuery =
         "select BusNumber, Category from busInfo where BusNumber = '" +
