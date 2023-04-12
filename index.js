@@ -298,8 +298,8 @@ app.get("/busnumber/:start&:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   var busNum;
-  const listResult = [];
-  const listTest = [];
+  global.listResult = [];
+  global.listTest = [];
   var tempList = 0;
 
   const busnumQuery =
@@ -339,7 +339,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         console.log(finalList);
         finalList.forEach(function (entry) {
           console.log(entry);
-          listTest.push(entry);
+          global.listTest.push(entry);
           const busnumQuery =
             "select BusNumber, Category from busInfo where BusNumber = '" +
             entry.BusNumber +
@@ -375,7 +375,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
       });
     });
     console.log("ttetee")
-  console.log(listTest)
+  console.log(global.listTest)
   res.send(listTest);
   });
 });
