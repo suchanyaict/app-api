@@ -324,6 +324,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         '") having BusNumber = "' +
         busNum +
         '";';
+        console.log("test");
       console.log(passingQuery);
       connection.query(passingQuery, function (err, resultNumber, fields) {
         if (resultNumber != 0) {
