@@ -336,20 +336,20 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           }
           return false;
         });
-        console.log(finalList);
-        finalList.forEach(function (entry) {
-          console.log(entry);
-          global.listTest.push(entry);
-          const busnumQuery =
-            "select BusNumber, Category from busInfo where BusNumber = '" +
-            entry.BusNumber +
-            "';";
-          console.log(busnumQuery);
-          connection.query(busnumQuery, function (err, result, fields) {
-            console.log("teeth")
-            console.log(result);
-          });
-        });
+        
+        // finalList.forEach(function (entry) {
+        //   console.log(entry);
+        //   global.listTest.push(entry);
+        //   const busnumQuery =
+        //     "select BusNumber, Category from busInfo where BusNumber = '" +
+        //     entry.BusNumber +
+        //     "';";
+        //   console.log(busnumQuery);
+        //   connection.query(busnumQuery, function (err, result, fields) {
+        //     console.log("teeth")
+        //     console.log(result);
+        //   });
+        // });
 
         const resultType = [];
 
@@ -367,11 +367,14 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         // finalList.push(newObj);
         // res.send(finalList);
 
-        // if (tempList == resultNum.length - 1) {
-        //   res.send(finalList);
-        // } else {
-        //   tempList += 1;
-        // }
+        if (tempList == resultNum.length - 1) {
+          finalList.forEach(function (entry) {
+            console.log(entry);
+            global.listTest.push(entry);          
+          });
+        } else {
+          tempList += 1;
+        }
       });
     });
     console.log("ttetee")
