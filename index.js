@@ -427,8 +427,6 @@ app.get("/test/:start&:stop", (req, res) => {
       });
     });
   });
-  console.log(finalList);
-  res.send(finalList);
   // finalList.forEach(function (entry) {
   //   console.log(entry);
   //   finalNum = '"' + entry.BusNumber + '"';
