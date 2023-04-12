@@ -418,18 +418,16 @@ app.get("/test/:start&:stop", (req, res) => {
 
         // console.log("hi");
 
-        // res.send(finalList);
-
         // if (tempList == resultNum.length - 1) {
         //   res.send(finalList);
         // } else {
         //   tempList += 1;
         // }
       });
-      console.log(finalList);
     });
   });
-
+  console.log(finalList);
+  res.send(finalList);
   // finalList.forEach(function (entry) {
   //   console.log(entry);
   //   finalNum = '"' + entry.BusNumber + '"';
