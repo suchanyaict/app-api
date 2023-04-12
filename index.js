@@ -301,6 +301,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
   global.listResult = [];
   global.listTest = [];
   var tempList = 0;
+  global.eiei = []
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -379,7 +380,6 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     });
     console.log("ttetee")
   console.log(global.listTest)
-  global.eiei = []
   global.listTest.forEach(function (entry){
     const busnumQuery =
     "select BusNumber, Category from busInfo where BusNumber = '" +
