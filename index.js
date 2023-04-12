@@ -363,7 +363,7 @@ app.get("/test/:start&:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   var busNum;
-  var listResult = [];
+  const listResult = [];
   var tempList = 0;
 
   const busnumQuery =
@@ -373,7 +373,6 @@ app.get("/test/:start&:stop", (req, res) => {
     stop +
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
   connection.query(busnumQuery, function (err, resultNum, fields) {
-    // console.log(resultNum);
     resultNum.forEach(function (entry) {
       var obj = new Object();
       busNum = entry.BusNumber;
@@ -389,14 +388,12 @@ app.get("/test/:start&:stop", (req, res) => {
         '") having BusNumber = "' +
         busNum +
         '";';
-      // console.log(passingQuery);
       connection.query(passingQuery, function (err, resultNumber, fields) {
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
         } else {
         }
         listResult.push(obj);
-        console.log(listResult);
 
         const finalList = listResult.filter((element) => {
           if (Object.keys(element).length !== 0) {
@@ -425,16 +422,7 @@ app.get("/test/:start&:stop", (req, res) => {
       });
     });
   });
-  // finalList.forEach(function (entry) {
-  //   console.log(entry);
-  //   finalNum = '"' + entry.BusNumber + '"';
-  //   const findTypeQuery =
-  //     "select Category from busInfo where BusNumber = " + finalNum + ";";
-  //   console.log(findTypeQuery);
-  //   connection.query(findTypeQuery, function (err, resultType, fields) {
-  //     console.log(resultType);
-  //   });
-  // });
 });
+
 
 app.listen(process.env.PORT || 3000);
