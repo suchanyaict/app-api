@@ -364,7 +364,6 @@ app.get("/test/:start&:stop", (req, res) => {
   const stop = req.params.stop;
   var busNum;
   var listResult = [];
-  var finalList = [];
   var tempList = 0;
 
   const busnumQuery =
@@ -390,19 +389,20 @@ app.get("/test/:start&:stop", (req, res) => {
         '") having BusNumber = "' +
         busNum +
         '";';
+      console.log(passingQuery);
       connection.query(passingQuery, function (err, resultNumber, fields) {
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
         }
         listResult.push(obj);
 
-         finalList = listResult.filter((element) => {
+        const finalList = listResult.filter((element) => {
           if (Object.keys(element).length !== 0) {
             return true;
           }
           return false;
         });
-
+        console.log(finalList);
 
         // finalList.forEach(function (entry) {
         //   finalNum = entry.BusNumber;
