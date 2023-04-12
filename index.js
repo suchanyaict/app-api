@@ -240,7 +240,7 @@ app.get("/pricewithdis/:start&:stop/:distance", (req, res) => {
 
 // ip: bust type & distance
 // op: price
-app.get("/price/:busNumber/:distance", (req, res) => {
+app.get("/oldprice/:busNumber/:distance", (req, res) => {
   const busNumber = req.params.busNumber;
   const distance = req.params.distance;
   var price = 0;
@@ -292,6 +292,58 @@ app.get("/price/:busNumber/:distance", (req, res) => {
   });
 });
 
+app.get("/price/:busType/:distance", (req, res) => {
+  const busType = req.params.busType;
+  const distance = req.params.distance;
+  var price = 0;
+  // const query =
+  // 'select Category from busInfo where BusNumber = "' + busNumber + '";';
+  // connection.query(query, function (err, result, fields) {
+  // busType = result[0].Category;
+  if (busType === "regular") {
+    price = 8;
+  } else if (result === "AC") {
+    if (distance >= 0 && distance <= 8) {
+      price = 12;
+    } else if (distance > 8 && distance <= 12) {
+      price = 14;
+    } else if (distance > 12 && distance <= 16) {
+      price = 16;
+    } else if (distance > 16 && distance <= 20) {
+      price = 18;
+    } else if (distance > 20) {
+      price = 20;
+    }
+  } else if (busType === "Euro2" || busType === "acPCB") {
+    if (distance >= 0 && distance <= 4) {
+      price = 13;
+    } else if (distance > 4 && distance <= 8) {
+      price = 15;
+    } else if (distance > 8 && distance <= 12) {
+      price = 17;
+    } else if (distance > 12 && distance <= 16) {
+      price = 19;
+    } else if (distance > 16 && distance <= 20) {
+      price = 21;
+    } else if (distance > 20 && distance <= 23) {
+      price = 23;
+    } else if (distance > 23) {
+      price = 25;
+    }
+  } else if (busType === "NGV") {
+    if (distance >= 0 && distance <= 4) {
+      price = 15;
+    } else if (distance > 4 && distance <= 6) {
+      price = 20;
+    } else if (distance > 16) {
+      price = 25;
+    }
+  }
+
+  res.send(`${price}`);
+  // });
+});
+
 // ip: start&stop
 // op: BusNumber
 app.get("/busnumber/:start&:stop", (req, res) => {
@@ -301,7 +353,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
   global.listResult = [];
   global.listTest = [];
   var tempList = 0;
-  global.eiei = []
+  global.eiei = [];
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -341,32 +393,32 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         if (tempList == resultNum.length - 1) {
           finalList.forEach(function (entry) {
             console.log(entry);
-            global.listTest.push(entry);          
+            global.listTest.push(entry);
           });
         } else {
           tempList += 1;
         }
       });
     });
-    console.log("ttetee")
-  console.log(global.listTest)
-  global.listTest.forEach(function (entry){
-    const busnumQuery =
-    "select BusNumber, Category from busInfo where BusNumber = '" +
-    entry.BusNumber +
-    "';";
-  console.log(busnumQuery);
-  connection.query(busnumQuery, function (err, result, fields) {
-    console.log("teeth")
-    console.log(result);
-    result.forEach(function(entry){
-      console.log("tooth")
-      console.log(entry)
-      global.eiei.push(entry)
-    })
-  });
-  })
-  res.send(global.eiei);
+    console.log("ttetee");
+    console.log(global.listTest);
+    global.listTest.forEach(function (entry) {
+      const busnumQuery =
+        "select BusNumber, Category from busInfo where BusNumber = '" +
+        entry.BusNumber +
+        "';";
+      console.log(busnumQuery);
+      connection.query(busnumQuery, function (err, result, fields) {
+        console.log("teeth");
+        console.log(result);
+        result.forEach(function (entry) {
+          console.log("tooth");
+          console.log(entry);
+          global.eiei.push(entry);
+        });
+      });
+    });
+    res.send(global.eiei);
   });
 });
 
