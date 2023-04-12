@@ -325,12 +325,12 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         busNum +
         '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
-        console.log("Check result: ")
-        console.log(resultNumber)
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
         }
         listResult.push(obj);
+        console.log("Check list result");
+        console.log(listResult)
 
         const finalList = listResult.filter((element) => {
           if (Object.keys(element).length !== 0) {
