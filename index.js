@@ -391,13 +391,13 @@ app.get("/test/:start&:stop", (req, res) => {
         '";';
       // console.log(passingQuery);
       connection.query(passingQuery, function (err, resultNumber, fields) {
-        console.log("hi");
+        console.log("hi3");
         // console.log(resultNumber);
-        // if (resultNumber != 0) {
-        // obj.BusNumber = resultNumber[0].BusNumber;
-        // // }
-        // listResult.push(obj);
-        // console.log(listResult);
+        if (resultNumber != []) {
+        obj.BusNumber = resultNumber[0].BusNumber;
+        }
+        listResult.push(obj);
+        console.log(listResult);
 
         // const finalList = listResult.filter((element) => {
         //   if (Object.keys(element).length !== 0) {
