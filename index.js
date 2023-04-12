@@ -351,13 +351,13 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           //   });
         // });
         // finalList.push(newObj);
-        // res.send(finalList);
+        res.send(finalList);
 
-        if (tempList == resultNum.length - 1) {
-          res.send(finalList);
-        } else {
-          tempList += 1;
-        }
+        // if (tempList == resultNum.length - 1) {
+        //   res.send(finalList);
+        // } else {
+        //   tempList += 1;
+        // }
       });
     });
   });
