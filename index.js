@@ -335,21 +335,21 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           }
           return false;
         });
-        console.log(finalList)
-        finalList.forEach(function(entry) {
-          console.log(entry)
+        console.log(finalList);
+        finalList.forEach(function (entry) {
+          console.log(entry);
           const busnumQuery =
-        "select BusNumber, Category from busInfo where BusNumber = " +
-        entry.BusNumber + ";";
-        console.log(busnumQuery)
-          connection.query(busnumQuery, function(err, result, fields) {
+            "select BusNumber, Category from busInfo where BusNumber = '" +
+            entry.BusNumber +
+            "';";
+          console.log(busnumQuery);
+          connection.query(busnumQuery, function (err, result, fields) {
             console.log(result);
-          })
-        })
-        
-        
-        const resultType = []
-        
+          });
+        });
+
+        const resultType = [];
+
         // finalList.forEach(function (entry) {
         //   finalNum = entry.BusNumber;
         //   console.log(finalNum);
