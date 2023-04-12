@@ -400,15 +400,17 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         }
       });
     });
+    var obj = new Object();
     global.listTest.forEach(function (entry) {
       const busnumQuery =
-        "select BusNumber, Category from busInfo where BusNumber = '" +
+        "select Category from busInfo where BusNumber = '" +
         entry.BusNumber +
         "';";
       connection.query(busnumQuery, function (err, result, fields) {
-        result.forEach(function (entry) {
-          global.numType.push(entry);
-        });
+        console.log(result);
+        // result.forEach(function (entry) {
+        //   global.numType.push(entry);
+        // });
       });
     });
     res.send(global.numType);
