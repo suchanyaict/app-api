@@ -325,6 +325,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         busNum +
         '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
+        console.log("Check result: "+ resultNumber)
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
         } else {
