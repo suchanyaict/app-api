@@ -389,12 +389,12 @@ app.get("/test/:start&:stop", (req, res) => {
         '") having BusNumber = "' +
         busNum +
         '";';
-      console.log(passingQuery);
+      // console.log(passingQuery);
       connection.query(passingQuery, function (err, resultNumber, fields) {
         console.log(resultNumber);
-        if (resultNumber != 0) {
+        // if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
-        }
+        // }
         listResult.push(obj);
 
         const finalList = listResult.filter((element) => {
