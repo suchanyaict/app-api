@@ -412,6 +412,8 @@ app.get("/test/:start&:stop", (req, res) => {
         //   });
         // });
         // finalList.push(newObj);
+        console.log('hi');
+        console.log(finalList);
         res.send(finalList);
 
         // if (tempList == resultNum.length - 1) {
