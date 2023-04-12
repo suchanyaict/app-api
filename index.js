@@ -334,21 +334,12 @@ app.get("/price/:busType/:distance", (req, res) => {
   } else if (busType === "NGV") {
     if (distance >= 0 && distance <= 4) {
       price = 15;
-    } else if (distance > 4 && distance <= 6) {
+    } else if (distance > 4 && distance <= 16) {
       price = 20;
     } else if (distance > 16) {
       price = 25;
     }
   }
-  //  if (busType === "NGV") {
-  //   if (distance >= 0 && distance <= 4) {
-  //     price = 15;
-  //   } else if (distance > 4 && distance <= 6) {
-  //     price = 20;
-  //   } else if (distance > 16) {
-  //     price = 25;
-  //   }
-  // }
 
   res.send(`${price}`);
   // });
