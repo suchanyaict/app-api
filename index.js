@@ -374,10 +374,10 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         // }
       });
     });
-  });
-  console.log("ttetee")
+    console.log("ttetee")
   console.log(listTest)
   res.send(listTest);
+  });
 });
 
 app.listen(process.env.PORT || 3000);
