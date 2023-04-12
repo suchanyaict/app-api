@@ -337,9 +337,10 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         });
         console.log(finalList)
         finalList.forEach(function(entry) {
+          console.log(entry)
           const busnumQuery =
         "select BusNumber, Category from busInfo where BusNumber = " +
-        finalList.BusNumber + ";";
+        entry.BusNumber + ";";
           connection.query(busnumQuery, function(err, result, fields) {
             console.log(result);
           })
