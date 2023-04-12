@@ -392,7 +392,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
 
         if (tempList == resultNum.length - 1) {
           finalList.forEach(function (entry) {
-            console.log(entry);
+            // console.log(entry);
             global.listTest.push(entry);
           });
         } else {
