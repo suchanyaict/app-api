@@ -391,22 +391,18 @@ app.get("/test/:start&:stop", (req, res) => {
         '";';
       // console.log(passingQuery);
       connection.query(passingQuery, function (err, resultNumber, fields) {
-        console.log("hi2");
-        console.log(resultNumber);
-        if (resultNumber == []) {
-        } else {
+        if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
+        } else {
         }
         listResult.push(obj);
-        console.log(listResult);
 
-        // const finalList = listResult.filter((element) => {
-        //   if (Object.keys(element).length !== 0) {
-        //     return true;
-        //   }
-        //   return false;
-        // });
-        // console.log(finalList);
+        const finalList = listResult.filter((element) => {
+          if (Object.keys(element).length !== 0) {
+            return true;
+          }
+          return false;
+        });
 
         // finalList.forEach(function (entry) {
         //   finalNum = entry.BusNumber;
@@ -414,20 +410,17 @@ app.get("/test/:start&:stop", (req, res) => {
         //     "select Category from busInfo where BusNumber = " + finalNum + ";";
         //   connection.query(findTypeQuery, function (err, resultType, fields) {
         //     console.log(resultType[0].Category);
-        //     obj.busType = resultType[0].Category;
-        //     console.log("yo");
-        //     console.log(obj);
-        //     finalList.push(obj);
+        //     newObj.busType = resultType[0].Category;
         //   });
         // });
+        // finalList.push(newObj);
+        // res.send(finalList);
 
-        // console.log("hi");
-
-        // if (tempList == resultNum.length - 1) {
-        //   res.send(finalList);
-        // } else {
-        //   tempList += 1;
-        // }
+        if (tempList == resultNum.length - 1) {
+          res.send(finalList);
+        } else {
+          tempList += 1;
+        }
       });
     });
   });
