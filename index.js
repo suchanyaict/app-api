@@ -392,7 +392,7 @@ app.get("/test/:start&:stop", (req, res) => {
       // console.log(passingQuery);
       connection.query(passingQuery, function (err, resultNumber, fields) {
         console.log("hi2");
-        // console.log(resultNumber);
+        console.log(resultNumber);
         if (resultNumber == []) {
         } else {
           obj.BusNumber = resultNumber[0].BusNumber;
