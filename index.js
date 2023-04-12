@@ -354,7 +354,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
   global.listResult = [];
   global.listTest = [];
   var tempList = 0;
-  global.eiei = [];
+  global.numType = [];
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -407,11 +407,11 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         "';";
       connection.query(busnumQuery, function (err, result, fields) {
         result.forEach(function (entry) {
-          global.eiei.push(entry);
+          global.numType.push(entry);
         });
       });
     });
-    res.send(global.eiei);
+    res.send(global.numType);
   });
 });
 
