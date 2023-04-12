@@ -293,7 +293,7 @@ app.get("/oldprice/:busNumber/:distance", (req, res) => {
 });
 
 app.get("/price/:busType/:distance", (req, res) => {
-  const busType = req.params.busType;
+  const busType = req.params.busType.toString;
   const distance = req.params.distance;
   var price = 0;
   // const query =
