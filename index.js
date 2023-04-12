@@ -301,9 +301,10 @@ app.get("/price/:busType/:distance", (req, res) => {
   // connection.query(query, function (err, result, fields) {
   // busType = result[0].Category;
   console.log(busType);
-  // if (busType === "regular") {
-  //   price = 8;
-  // } else if (result === "AC") {
+  if (busType === "regular") {
+    price = 8;
+  } 
+  // else if (result === "AC") {
   //   if (distance >= 0 && distance <= 8) {
   //     price = 12;
   //   } else if (distance > 8 && distance <= 12) {
