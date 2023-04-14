@@ -376,7 +376,6 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
     });
     global.busNumber.forEach(function(tempBusNumber) {
       var obj = new Object();
-      console.log(tempBusNumber)
       const passingQuery =
       'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
       start +
@@ -390,9 +389,6 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
       tempBusNumber +
       '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
-        console.log(passingQuery)
-        console.log("result")
-        console.log(resultNumber)
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
         }
@@ -400,8 +396,6 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
       })
     })
 
-    console.log("real bus")
-    console.log(global.realBusnumber)
     global.filterBusNumber =  global.realBusnumber.filter((element) => {
       if (Object.keys(element).length !== 0) {
         return true;
