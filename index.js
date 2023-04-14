@@ -355,6 +355,7 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
   global.listTest = [];
   var tempList = 0;
   global.numType = [];
+  global.busNumber = [];
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -366,6 +367,7 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
     resultNum.forEach(function (entry) {
       var obj = new Object();
       busNum = entry.BusNumber;
+      global.busNumber.push(busNum)
       const passingQuery =
         'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
         start +
@@ -378,7 +380,6 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
         '") having BusNumber = "' +
         busNum +
         '";';
-      console.log(passingQuery);
       connection.query(passingQuery, function (err, resultNumber, fields) {
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
@@ -413,8 +414,12 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
         });
       });
     });
+    console.log("Busnum list");
+    console.log(global.busNumber)
     res.send(global.numType);
   });
+
+
 });
 
 app.get("/busnumber/:start&:stop", (req, res) => {
