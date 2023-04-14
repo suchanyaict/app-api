@@ -374,8 +374,6 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
       busNum = entry.BusNumber;
       global.busNumber.push(busNum)
     });
-    console.log("Busnum list");
-    console.log(global.busNumber)
     global.busNumber.forEach(function(tempBusNumber) {
       var obj = new Object();
       console.log(tempBusNumber)
@@ -410,14 +408,10 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
       }
       return false;
     });
-    console.log("filterBusNumber");
-    console.log(global.filterBusNumber)
 
     global.filterBusNumber.forEach(function (entry) {
       global.listForCategory.push(entry);
     });
-    console.log("listForCategory");
-    console.log(global.listForCategory)
 
     global.listForCategory.forEach(function (entry) {
       const busnumQuery =
@@ -430,8 +424,6 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
         });
       });
     });
-    console.log("numtype")
-    console.log(global.numberType)
     res.send(global.numberType);
   });
 
