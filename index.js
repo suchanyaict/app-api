@@ -394,7 +394,6 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
 
         if (tempList == resultNum.length - 1) {
           finalList.forEach(function (entry) {
-            // console.log(entry);
             listTest.push(entry);
           });
         } else {
@@ -408,7 +407,6 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
         entry.BusNumber +
         "';";
       connection.query(busnumQuery, function (err, result, fields) {
-        console.log(result);
         result.forEach(function (entry) {
           global.numType.push(entry);
         });
