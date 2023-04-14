@@ -442,13 +442,17 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
       })
     })
 
+    console.log("real bus")
+    console.log(global.realBusnumber)
     global.filterBusNumber =  global.realBusnumber.filter((element) => {
       if (Object.keys(element).length !== 0) {
         return true;
       }
       return false;
     });
+    console.log("filterBusNumber");
     console.log(global.filterBusNumber)
+
     global.filterBusNumber.forEach(function (entry) {
       global.listForCategory.push(entry);
     });
