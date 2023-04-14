@@ -392,20 +392,22 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
 
         if (tempList == resultNum.length - 1) {
           finalList.forEach(function (entry) {
-            const busnumQuery =
-              "select BusNumber, Category from busInfo where BusNumber = '" +
-              entry.BusNumber +
-              "';";
-            connection.query(busnumQuery, function (err, result, fields) {
-              // console.log(result);
-              result.forEach(function (entry) {
-                numType.push(entry);
-              });
-            });
+            console.log("yo");
+            console.log(entry);
+            // const busnumQuery =
+            //   "select BusNumber, Category from busInfo where BusNumber = '" +
+            //   entry.BusNumber +
+            //   "';";
+            // connection.query(busnumQuery, function (err, result, fields) {
+            //   // console.log(result);
+            //   result.forEach(function (entry) {
+            //     numType.push(entry);
+            //   });
+            // });
             // console.log(entry);
             // global.listTest.push(entry);
           });
-          res.send(numType);
+          // res.send(numType);
         } else {
           tempList += 1;
         }
