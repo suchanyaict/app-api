@@ -360,6 +360,7 @@ app.get("/newprice/:busType/:distance", (req, res) => {
 
 const busNumberFirstQuery = function(start, stop, connection){
   console.log("First query busNumber");
+  const listFirstQuery = []
   return new Promise(function(resolve,reject){
     const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -370,9 +371,11 @@ const busNumberFirstQuery = function(start, stop, connection){
   connection.query(busnumQuery, async function (err, resultNum, fields) {
     resultNum.forEach(function (entry) {
       busNum = entry.BusNumber;
+      listFirstQuery.push(busNumber)
       global.busNumber.push(busNum);
     });
   })
+  resolve(listFirstQuery)
  })
 }
 
