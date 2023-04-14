@@ -347,7 +347,7 @@ app.get("/newprice/:busType/:distance", (req, res) => {
 
 // ip: start&stop
 // op: BusNumber
-app.get("/newbusnumber/:start&:stop", (req, res) => {
+app.get("/newbusnumber/:start&:stop", async (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   var busNum;
@@ -420,8 +420,6 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
     });
     res.send(global.numberType);
   });
-
-
 });
 
 app.get("/busnumber/:start&:stop", (req, res) => {
