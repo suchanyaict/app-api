@@ -398,6 +398,7 @@ app.get("/newbusnumber/:start&:stop", async function(req, res) {
   const busNumberFirstQueryList = await busNumberFirstQuery(start, stop, connection);
   console.log("first  query")
   console.log(busNumberFirstQueryList)
+  console.log(global.busNumber)
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
