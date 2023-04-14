@@ -422,6 +422,7 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
     console.log(global.busNumber)
     global.busNumber.forEach(function(tempBusNumber) {
       var obj = new Object();
+      console.log(tempBusNumber)
       const passingQuery =
       'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
       start +
@@ -435,6 +436,7 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
       tempBusNumber +
       '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
+        console.log(resultNumber)
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
         }
