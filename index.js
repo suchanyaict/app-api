@@ -354,7 +354,7 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
   global.listResult = [];
   global.listTest = [];
   var tempList = 0;
-  global.numType = [];
+  numType = [];
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -392,27 +392,38 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
 
         if (tempList == resultNum.length - 1) {
           finalList.forEach(function (entry) {
+            const busnumQuery =
+              "select BusNumber, Category from busInfo where BusNumber = '" +
+              entry.BusNumber +
+              "';";
+            connection.query(busnumQuery, function (err, result, fields) {
+              // console.log(result);
+              result.forEach(function (entry) {
+                numType.push(entry);
+              });
+            });
             // console.log(entry);
-            global.listTest.push(entry);
+            // global.listTest.push(entry);
           });
+          res.send(numType);
         } else {
           tempList += 1;
         }
       });
     });
-    global.listTest.forEach(function (entry) {
-      const busnumQuery =
-        "select BusNumber, Category from busInfo where BusNumber = '" +
-        entry.BusNumber +
-        "';";
-      connection.query(busnumQuery, function (err, result, fields) {
-        console.log(result);
-        result.forEach(function (entry) {
-          global.numType.push(entry);
-        });
-      });
-    });
-    res.send(global.numType);
+    // global.listTest.forEach(function (entry) {
+    //   const busnumQuery =
+    //     "select BusNumber, Category from busInfo where BusNumber = '" +
+    //     entry.BusNumber +
+    //     "';";
+    //   connection.query(busnumQuery, function (err, result, fields) {
+    //     console.log(result);
+    //     result.forEach(function (entry) {
+    //       global.numType.push(entry);
+    //     });
+    //   });
+    // });
+    // res.send(global.numType);
   });
 });
 
