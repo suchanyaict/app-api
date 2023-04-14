@@ -356,6 +356,11 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
   var tempList = 0;
   global.numType = [];
   global.busNumber = [];
+  global.realBusnumber = []
+  global.filterBusNumber = []
+  global.listForCategory = []
+  global.numberType = [];
+
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -368,52 +373,102 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
       var obj = new Object();
       busNum = entry.BusNumber;
       global.busNumber.push(busNum)
+      // const passingQuery =
+      //   'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+      //   start +
+      //   '" and BusNumber = "' +
+      //   busNum +
+      //   '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+      //   stop +
+      //   '" and BusNumber = "' +
+      //   busNum +
+      //   '") having BusNumber = "' +
+      //   busNum +
+      //   '";';
+      // connection.query(passingQuery, function (err, resultNumber, fields) {
+      //   if (resultNumber != 0) {
+      //     obj.BusNumber = resultNumber[0].BusNumber;
+      //   }
+      //   listResult.push(obj);
+      //   const finalList = listResult.filter((element) => {
+      //     if (Object.keys(element).length !== 0) {
+      //       return true;
+      //     }
+      //     return false;
+      //   });
+
+      //   if (tempList == resultNum.length - 1) {
+      //     finalList.forEach(function (entry) {
+      //       listTest.push(entry);
+      //     });
+      //   } else {
+      //     tempList += 1;
+      //   }
+      // });
+    });
+    // global.listTest.forEach(function (entry) {
+    //   const busnumQuery =
+    //     "select BusNumber, Category from busInfo where BusNumber = '" +
+    //     entry.BusNumber +
+    //     "';";
+    //   connection.query(busnumQuery, function (err, result, fields) {
+    //     result.forEach(function (entry) {
+    //       global.numType.push(entry);
+    //     });
+    //   });
+    // });
+
+    console.log("Busnum list");
+    console.log(global.busNumber)
+    global.busNumber.forEach(function(tempBusNumber) {
+      var obj = new Object();
       const passingQuery =
-        'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
-        start +
-        '" and BusNumber = "' +
-        busNum +
-        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
-        stop +
-        '" and BusNumber = "' +
-        busNum +
-        '") having BusNumber = "' +
-        busNum +
-        '";';
+      'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+      start +
+      '" and BusNumber = "' +
+      tempBusNumber +
+      '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+      stop +
+      '" and BusNumber = "' +
+      tempBusNumber +
+      '") having BusNumber = "' +
+      tempBusNumber +
+      '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
         }
-        listResult.push(obj);
-        const finalList = listResult.filter((element) => {
-          if (Object.keys(element).length !== 0) {
-            return true;
-          }
-          return false;
-        });
+        global.realBusnumber.push(obj)
+      })
+    })
 
-        if (tempList == resultNum.length - 1) {
-          finalList.forEach(function (entry) {
-            listTest.push(entry);
-          });
-        } else {
-          tempList += 1;
-        }
-      });
+    global.filterBusNumber =  global.realBusnumber.filter((element) => {
+      if (Object.keys(element).length !== 0) {
+        return true;
+      }
+      return false;
     });
-    global.listTest.forEach(function (entry) {
+    console.log(global.filterBusNumber)
+    global.filterBusNumber.forEach(function (entry) {
+      global.listForCategory.push(entry);
+    });
+    console.log("listForCategory");
+    console.log(global.listForCategory)
+
+    global.listForCategory.forEach(function (entry) {
       const busnumQuery =
         "select BusNumber, Category from busInfo where BusNumber = '" +
         entry.BusNumber +
         "';";
       connection.query(busnumQuery, function (err, result, fields) {
         result.forEach(function (entry) {
-          global.numType.push(entry);
+          global.numberType.push(entry);
         });
       });
     });
-    console.log("Busnum list");
-    console.log(global.busNumber)
+    console.log("numtype")
+    console.log(global.numberType)
+
     res.send(global.numType);
   });
 
