@@ -356,11 +356,10 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
   var tempList = 0;
   global.numType = [];
   global.busNumber = [];
-  global.realBusnumber = []
-  global.filterBusNumber = []
-  global.listForCategory = []
+  global.realBusnumber = [];
+  global.filterBusNumber = [];
+  global.listForCategory = [];
   global.numberType = [];
-
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -372,58 +371,13 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
     resultNum.forEach(function (entry) {
       var obj = new Object();
       busNum = entry.BusNumber;
-      global.busNumber.push(busNum)
-      // const passingQuery =
-      //   'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
-      //   start +
-      //   '" and BusNumber = "' +
-      //   busNum +
-      //   '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
-      //   stop +
-      //   '" and BusNumber = "' +
-      //   busNum +
-      //   '") having BusNumber = "' +
-      //   busNum +
-      //   '";';
-      // connection.query(passingQuery, function (err, resultNumber, fields) {
-      //   if (resultNumber != 0) {
-      //     obj.BusNumber = resultNumber[0].BusNumber;
-      //   }
-      //   listResult.push(obj);
-      //   const finalList = listResult.filter((element) => {
-      //     if (Object.keys(element).length !== 0) {
-      //       return true;
-      //     }
-      //     return false;
-      //   });
-
-      //   if (tempList == resultNum.length - 1) {
-      //     finalList.forEach(function (entry) {
-      //       listTest.push(entry);
-      //     });
-      //   } else {
-      //     tempList += 1;
-      //   }
-      // });
+      global.busNumber.push(busNum);
     });
-    // global.listTest.forEach(function (entry) {
-    //   const busnumQuery =
-    //     "select BusNumber, Category from busInfo where BusNumber = '" +
-    //     entry.BusNumber +
-    //     "';";
-    //   connection.query(busnumQuery, function (err, result, fields) {
-    //     result.forEach(function (entry) {
-    //       global.numType.push(entry);
-    //     });
-    //   });
-    // });
-
-    console.log("Busnum list");
-    console.log(global.busNumber)
-    global.busNumber.forEach(function(tempBusNumber) {
-      var obj = new Object();
-      console.log(tempBusNumber)
-      const passingQuery =
+  });
+  global.busNumber.forEach(function (tempBusNumber) {
+    var obj = new Object();
+    console.log(tempBusNumber);
+    const passingQuery =
       'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
       start +
       '" and BusNumber = "' +
@@ -435,51 +389,48 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
       '") having BusNumber = "' +
       tempBusNumber +
       '";';
-      connection.query(passingQuery, function (err, resultNumber, fields) {
-        console.log(passingQuery)
-        console.log("result")
-        console.log(resultNumber)
-        if (resultNumber != 0) {
-          obj.BusNumber = resultNumber[0].BusNumber;
-        }
-        global.realBusnumber.push(obj)
-      })
-    })
-
-    console.log("real bus")
-    console.log(global.realBusnumber)
-    global.filterBusNumber =  global.realBusnumber.filter((element) => {
-      if (Object.keys(element).length !== 0) {
-        return true;
+    connection.query(passingQuery, function (err, resultNumber, fields) {
+      console.log(passingQuery);
+      console.log("result");
+      console.log(resultNumber);
+      if (resultNumber != 0) {
+        obj.BusNumber = resultNumber[0].BusNumber;
       }
-      return false;
+      global.realBusnumber.push(obj);
     });
-    console.log("filterBusNumber");
-    console.log(global.filterBusNumber)
-
-    global.filterBusNumber.forEach(function (entry) {
-      global.listForCategory.push(entry);
-    });
-    console.log("listForCategory");
-    console.log(global.listForCategory)
-
-    global.listForCategory.forEach(function (entry) {
-      const busnumQuery =
-        "select BusNumber, Category from busInfo where BusNumber = '" +
-        entry.BusNumber +
-        "';";
-      connection.query(busnumQuery, function (err, result, fields) {
-        result.forEach(function (entry) {
-          global.numberType.push(entry);
-        });
-      });
-    });
-    console.log("numtype")
-    console.log(global.numberType)
-    res.send(global.numberType);
   });
 
+  console.log("real bus");
+  console.log(global.realBusnumber);
+  global.filterBusNumber = global.realBusnumber.filter((element) => {
+    if (Object.keys(element).length !== 0) {
+      return true;
+    }
+    return false;
+  });
+  console.log("filterBusNumber");
+  console.log(global.filterBusNumber);
 
+  global.filterBusNumber.forEach(function (entry) {
+    global.listForCategory.push(entry);
+  });
+  console.log("listForCategory");
+  console.log(global.listForCategory);
+
+  global.listForCategory.forEach(function (entry) {
+    const busnumQuery =
+      "select BusNumber, Category from busInfo where BusNumber = '" +
+      entry.BusNumber +
+      "';";
+    connection.query(busnumQuery, function (err, result, fields) {
+      result.forEach(function (entry) {
+        global.numberType.push(entry);
+      });
+    });
+  });
+  console.log("numtype");
+  console.log(global.numberType);
+  res.send(global.numberType);
 });
 
 app.get("/busnumber/:start&:stop", (req, res) => {
