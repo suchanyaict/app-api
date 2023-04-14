@@ -476,8 +476,7 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
     });
     console.log("numtype")
     console.log(global.numberType)
-
-    res.send(global.numType);
+    res.send(global.numberType);
   });
 
 
