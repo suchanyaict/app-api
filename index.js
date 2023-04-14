@@ -2,11 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
 const app = express();
+const mySqlPromise = require('mysql2/promise')
 app.use(express.json());
 
 app.use(cors());
 
 const connection = mysql.createConnection(process.env.DATABASE_URL);
+const connectionPromise = mySqlPromise.createConnection(process.env.DATABASE_URL);
 
 //
 app.all("/", (req, res) => {
@@ -359,7 +361,7 @@ app.get("/newprice/:busType/:distance", (req, res) => {
 const busNumberFirstQuery = function(start, stop, connection){
   console.log("First query busNumber");
   return new Promise(function(resolve,reject){
-   connection.query('select BusNumber from stationInfo where StationName in ("' +
+    connectionPromise.query('select BusNumber from stationInfo where StationName in ("' +
    start +
    '","' +
    stop +
