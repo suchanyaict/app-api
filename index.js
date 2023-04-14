@@ -436,6 +436,7 @@ app.get("/newbusnumber/:start&:stop", (req, res) => {
       tempBusNumber +
       '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
+        console.log(passingQuery)
         console.log("result")
         console.log(resultNumber)
         if (resultNumber != 0) {
