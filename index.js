@@ -369,6 +369,7 @@ const busNumberFirstQuery = function(start, stop, connection){
     stop +
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
   connection.query(busnumQuery, async function (err, resultNum, fields) {
+    console.log(resultNum)
     resultNum.forEach(function (entry) {
       busNum = entry.BusNumber;
       listFirstQuery.push(busNumber)
