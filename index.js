@@ -240,7 +240,7 @@ app.get("/pricewithdis/:start&:stop/:distance", (req, res) => {
 
 // ip: bust type & distance
 // op: price
-app.get("/oldprice/:busNumber/:distance", (req, res) => {
+app.get("/price/:busNumber/:distance", (req, res) => {
   const busNumber = req.params.busNumber;
   const distance = req.params.distance;
   var price = 0;
@@ -292,7 +292,7 @@ app.get("/oldprice/:busNumber/:distance", (req, res) => {
   });
 });
 
-app.get("/price/:busType/:distance", (req, res) => {
+app.get("/newprice/:busType/:distance", (req, res) => {
   const busType = req.params.busType;
   const distance = req.params.distance;
   var price = 0;
@@ -347,7 +347,7 @@ app.get("/price/:busType/:distance", (req, res) => {
 
 // ip: start&stop
 // op: BusNumber
-app.get("/busnumber/:start&:stop", (req, res) => {
+app.get("/newbusnumber/:start&:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   var busNum;
@@ -416,7 +416,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
   });
 });
 
-app.get("/oldbusnumber/:start&:stop", (req, res) => {
+app.get("/busnumber/:start&:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   var busNum;
