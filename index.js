@@ -383,7 +383,7 @@ const busNumberFirstQuery = function(start, stop, connection){
 
 // ip: start&stop
 // op: BusNumber
-app.get("/newbusnumber/:start&:stop", async (req, res) => {
+app.get("/newbusnumber/:start&:stop", async function(req, res) {
   const start = req.params.start;
   const stop = req.params.stop;
   var busNum;
