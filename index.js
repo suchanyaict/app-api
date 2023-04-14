@@ -361,27 +361,20 @@ app.get("/newprice/:busType/:distance", (req, res) => {
 const busNumberFirstQuery = function(start, stop, connection){
   console.log("First query busNumber");
   return new Promise(function(resolve,reject){
-    connectionPromise.query('select BusNumber from stationInfo where StationName in ("' +
-   start +
-   '","' +
-   stop +
-   '") GROUP BY BusNumber having COUNT(StationName) > 1;')
-    .then(function(results){
-      busNum = results.BusNumber;
-      resolve(global.busNumber.push(busNum));
-    //  if(results.length == 1){
-    //   resolve(results[0].id)
-    //  } else {
-    //   connection.query("INSERT INTO user SET ?", user)
-    //   .then(function(results){
-    //    resolve(results.insertId);
-    //   });
-    //  }
-    }).catch(function(error){
-     reject(error);
-    })
+    const busnumQuery =
+    'select BusNumber from stationInfo where StationName in ("' +
+    start +
+    '","' +
+    stop +
+    '") GROUP BY BusNumber having COUNT(StationName) > 1;';
+  connection.query(busnumQuery, async function (err, resultNum, fields) {
+    resultNum.forEach(function (entry) {
+      busNum = entry.BusNumber;
+      global.busNumber.push(busNum);
+    });
   })
- }
+ })
+}
 
 // ip: start&stop
 // op: BusNumber
