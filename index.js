@@ -345,6 +345,42 @@ app.get("/newprice/:busType/:distance", (req, res) => {
   // });
 });
 
+// const busNumberFirstQuery = function () {
+//   console.log("First query busNumber");
+//   return new Promise(function (resolve, reject) {
+//     connection.query( 'select BusNumber from stationInfo where StationName in ("' +
+//     start +
+//     '","' +
+//     stop +
+//     '") GROUP BY BusNumber having COUNT(StationName) > 1;')
+//   }).then;
+// };
+
+const busNumberFirstQuery = function(start, stop, connection){
+  console.log("First query busNumber");
+  return new Promise(function(resolve,reject){
+   connection.query('select BusNumber from stationInfo where StationName in ("' +
+   start +
+   '","' +
+   stop +
+   '") GROUP BY BusNumber having COUNT(StationName) > 1;')
+    .then(function(results){
+      busNum = results.BusNumber;
+      resolve(global.busNumber.push(busNum));
+    //  if(results.length == 1){
+    //   resolve(results[0].id)
+    //  } else {
+    //   connection.query("INSERT INTO user SET ?", user)
+    //   .then(function(results){
+    //    resolve(results.insertId);
+    //   });
+    //  }
+    }).catch(function(error){
+     reject(error);
+    })
+  })
+ }
+
 // ip: start&stop
 // op: BusNumber
 app.get("/newbusnumber/:start&:stop", async (req, res) => {
@@ -356,11 +392,14 @@ app.get("/newbusnumber/:start&:stop", async (req, res) => {
   var tempList = 0;
   global.numType = [];
   global.busNumber = [];
-  global.realBusnumber = []
-  global.filterBusNumber = []
-  global.listForCategory = []
+  global.realBusnumber = [];
+  global.filterBusNumber = [];
+  global.listForCategory = [];
   global.numberType = [];
 
+  const busNumberFirstQueryList = await busNumberFirstQuery(start, stop, connection);
+  console.log("first  query")
+  console.log(busNumberFirstQueryList)
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -370,33 +409,32 @@ app.get("/newbusnumber/:start&:stop", async (req, res) => {
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
   connection.query(busnumQuery, function (err, resultNum, fields) {
     resultNum.forEach(function (entry) {
-      var obj = new Object();
       busNum = entry.BusNumber;
-      global.busNumber.push(busNum)
+      global.busNumber.push(busNum);
     });
-    global.busNumber.forEach(function(tempBusNumber) {
+    global.busNumber.forEach(function (tempBusNumber) {
       var obj = new Object();
       const passingQuery =
-      'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
-      start +
-      '" and BusNumber = "' +
-      tempBusNumber +
-      '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
-      stop +
-      '" and BusNumber = "' +
-      tempBusNumber +
-      '") having BusNumber = "' +
-      tempBusNumber +
-      '";';
+        'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+        start +
+        '" and BusNumber = "' +
+        tempBusNumber +
+        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+        stop +
+        '" and BusNumber = "' +
+        tempBusNumber +
+        '") having BusNumber = "' +
+        tempBusNumber +
+        '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
         }
-        global.realBusnumber.push(obj)
-      })
-    })
+        global.realBusnumber.push(obj);
+      });
+    });
 
-    global.filterBusNumber =  global.realBusnumber.filter((element) => {
+    global.filterBusNumber = global.realBusnumber.filter((element) => {
       if (Object.keys(element).length !== 0) {
         return true;
       }
