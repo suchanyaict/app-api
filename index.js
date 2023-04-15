@@ -373,9 +373,9 @@ const busNumberFirstQuery = function (start, stop, connection) {
     connection.query(busnumQuery, async function (err, resultNum, fields) {
       console.log(resultNum);
       resultNum.forEach(function (entry) {
-        busNum = entry.BusNumber;
-        listFirstQuery.push(busNumber);
-        global.busNumber.push(busNum);
+        // busNum = entry.BusNumber;
+        listFirstQuery.push(entry.BusNumber);
+        global.busNumber.push(entry.BusNumber);
       });
     });
     console.log("Call busNumberFirstNumber");
