@@ -627,7 +627,9 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
   const stop = req.params.stop;
   var busNum;
   listResult = [];
+  numberType = [];
   var tempList = 0;
+  var obj = new Object();
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -656,22 +658,32 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         if (resultNumber != 0) {
           listResult.push(resultNumber[0].BusNumber);
         }
-        console.log("hi");
-        console.log(listResult);
-        console.log("out");
+        // console.log("hi");
+        // console.log(listResult);
+        // console.log("out");
 
         if (tempList == resultNum.length - 1) {
-          console.log("yo2");
-          console.log(listResult[0]);
+          // console.log("yo2");
+          // console.log(listResult[0]);
           // console.log()
           listResult.forEach(function (entry) {
             console.log("each");
             console.log(entry);
+            const busnumQuery =
+              "select BusNumber, Category from busInfo where BusNumber = '" +
+              entry +
+              "';";
+            console.log(busnumQuery);
+            connection.query(busnumQuery, function (err, result, fields) {
+              result.forEach(function (entry) {
+                numberType.push(entry);
+              });
+            });
           });
-          for (var i = 0; i < listResult.length; i++) {
-            console.log("for");
-            console.log(listResult[i]);
-          }
+          // for (var i = 0; i < listResult.length; i++) {
+          //   console.log("for");
+          //   console.log(listResult[i]);
+          // }
 
           // res.send(finalList);
         } else {
