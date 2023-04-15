@@ -382,40 +382,18 @@ const busNumberFirstQuery = function (start, stop, connection) {
   });
 };
 
-const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
-  console.log("second query");
-  console.log(busNumberFirstQueryList);
-  const tempSecondList = [];
+const busNumberSecondQuery = function (passingQuery) {
+  var obj = new Object();
   return new Promise(function (resolve, reject) {
-    busNumberFirstQueryList.forEach(function (tempBusNumber) {
-      var obj = new Object();
-      const passingQuery =
-        'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
-        start +
-        '" and BusNumber = "' +
-        tempBusNumber +
-        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
-        stop +
-        '" and BusNumber = "' +
-        tempBusNumber +
-        '") having BusNumber = "' +
-        tempBusNumber +
-        '";';
-      connection.query(passingQuery, function (err, resultNumber, fields) {
-        if (resultNumber != 0) {
-          console.log("in");
-          console.log(resultNumber);
-          obj.BusNumber = resultNumber[0].BusNumber;
-          tempSecondList.push(obj);
-          global.realBusnumber.push(obj);
-        }
-        console.log("out");
+    connection.query(passingQuery, function (err, resultNumber, fields) {
+      if (resultNumber != 0) {
         console.log(resultNumber);
-      });
+        obj.BusNumber = resultNumber[0].BusNumber;
+        tempSecondList.push(obj);
+        global.realBusnumber.push(obj);
+        resolve(obj);
+      }
     });
-    console.log(global.realBusnumber);
-    console.log(tempSecondList);
-    resolve(tempSecondList);
   });
 };
 
@@ -454,6 +432,28 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   console.log(busNumberSecondQueryList);
   console.log("secind  global");
   console.log(global.realBusnumber);
+
+  console.log("second query");
+  console.log(busNumberFirstQueryList);
+  const tempSecondList = [];
+  busNumberFirstQueryList.forEach(async function (tempBusNumber) {
+    var obj = new Object();
+    const passingQuery =
+      'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+      start +
+      '" and BusNumber = "' +
+      tempBusNumber +
+      '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+      stop +
+      '" and BusNumber = "' +
+      tempBusNumber +
+      '") having BusNumber = "' +
+      tempBusNumber +
+      '";';
+    const busNumberSecondQueryList = await busNumberSecondQuery(passingQuery);
+    console.log("result secind 2 ");
+    console.log(busNumberSecondQueryList);
+  });
 
   // const busnumQuery =
   //   'select BusNumber from stationInfo where StationName in ("' +
