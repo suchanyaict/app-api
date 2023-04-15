@@ -626,8 +626,8 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   var busNum;
-  listResult = [];
-  var tempList = 0;
+  global.listResult = [];
+  // var tempList = 0;
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -662,6 +662,8 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
           // console.log(listResult);
         }
         console.log(listResult);
+        res.send(listResult);
+
         // listResult.push(obj);
         // const finalList = listResult.filter((element) => {
         //   if (Object.keys(element).length !== 0) {
