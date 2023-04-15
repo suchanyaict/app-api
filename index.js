@@ -383,8 +383,8 @@ const busNumberFirstQuery = function (start, stop, connection) {
 };
 
 const busNumberSecondQueryConnection = function (passingQuery) {
-  var obj = new Object();
   return new Promise(function (resolve, reject) {
+    var obj = new Object();
     connection.query(passingQuery, async function (err, resultNumber, fields) {
       if (resultNumber != 0) {
         obj.BusNumber = resultNumber[0].BusNumber;
@@ -398,6 +398,8 @@ const busNumberSecondQueryConnection = function (passingQuery) {
 const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
   return new Promise(function (resolve, reject) {
     const secondFilterBusNumber = [];
+    const firstIndex = 0
+    const secondIndex = busNumberFirstQueryList.length
     busNumberFirstQueryList.forEach(async function (tempBusNumber) {
       console.log("Loop second query");
       console.log(tempBusNumber);
@@ -419,10 +421,12 @@ const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
       console.log("result call sql second");
       console.log(busNumberSecondQueryList);
       secondFilterBusNumber.push(busNumberSecondQueryList);
+      if(firstIndex == secondIndex - 1){
+        resolve(secondFilterBusNumber)
+      } else {
+        firstIndex += 1
+      }
     });
-    console.log("Result second query list");
-    console.log(secondFilterBusNumber);
-    resolve(secondFilterBusNumber);
   });
 };
 
