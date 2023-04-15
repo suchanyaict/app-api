@@ -656,7 +656,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         console.log("yo");
         console.log(resultNumber);
         if (resultNumber != 0) {
-          console("test");
+          console.log("test");
           console.log(resultNumber);
           listResult.push(resultNumber[0].BusNumber);
           console.log(listResult);
