@@ -662,7 +662,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
 
         if (tempList == resultNum.length - 1) {
           console.log("yo");
-          // console.log(listResult);
+          console.log(listResult);
 
           // res.send(finalList);
         } else {
