@@ -679,6 +679,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         // }
       });
     });
+    console.log("yo");
     console.log(listResult);
   });
 });
