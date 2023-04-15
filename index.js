@@ -500,7 +500,7 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   const categoryResult = await categoryResultList(filterBusNumberEmpty)
   console.log("Category result")
   console.log(categoryResult)
-  res.send(categoryResult);
+  res.status(200).json(categoryResult);
   // global.filterBusNumber = secondFilterBusNumber.filter((element) => {
   //   console.log("in filter")
   //   console.log(element)
