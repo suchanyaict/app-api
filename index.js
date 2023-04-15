@@ -661,12 +661,12 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         console.log("out");
 
         if (tempList == resultNum.length - 1) {
-          console.log("yo");
+          console.log("yo2");
           console.log(listResult[0]);
           // console.log()
-          // listResult.forEach(function (entry) {
-          //   console.log(entry);
-          // });
+          listResult.forEach(function (entry) {
+            console.log(entry);
+          });
 
           // res.send(finalList);
         } else {
