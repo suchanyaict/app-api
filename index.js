@@ -662,10 +662,11 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
 
         if (tempList == resultNum.length - 1) {
           console.log("yo");
-          console.log(listResult);
-          listResult.forEach(function (entry) {
-            console.log(entry);
-          });
+          console.log(listResult[0]);
+          // console.log()
+          // listResult.forEach(function (entry) {
+          //   console.log(entry);
+          // });
 
           // res.send(finalList);
         } else {
