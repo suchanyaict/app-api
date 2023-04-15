@@ -628,7 +628,6 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
   var busNum;
   listResult = [];
   var tempList = 0;
-  var passingQuery;
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -640,7 +639,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
     resultNum.forEach(function (entry) {
       // var obj = new Object();
       busNum = entry.BusNumber;
-      passingQuery =
+      const passingQuery =
         'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
         start +
         '" and BusNumber = "' +
@@ -652,28 +651,30 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         '") having BusNumber = "' +
         busNum +
         '";';
-      console.log("in");
-      console.log(passingQuery);
-    });
-    console.log("out");
-    console.log(passingQuery);
-    connection.query(passingQuery, function (err, resultNumber, fields) {
-      if (resultNumber != 0) {
-        obj.BusNumber = resultNumber[0].BusNumber;
-      }
-      listResult.push(obj);
-      const finalList = listResult.filter((element) => {
-        if (Object.keys(element).length !== 0) {
-          return true;
-        }
-        return false;
-      });
 
-      if (tempList == resultNum.length - 1) {
-        res.send(finalList);
-      } else {
-        tempList += 1;
-      }
+      connection.query(passingQuery, function (err, resultNumber, fields) {
+        console.log("yo");
+        console.log(resultNumber);
+        if (resultNumber != 0) {
+          console("test");
+          console.log(resultNumber);
+          listResult.push(resultNumber[0].BusNumber);
+          console.log(listResult);
+        }
+        // listResult.push(obj);
+        // const finalList = listResult.filter((element) => {
+        //   if (Object.keys(element).length !== 0) {
+        //     return true;
+        //   }
+        //   return false;
+        // });
+
+        // if (tempList == resultNum.length - 1) {
+        //   res.send(finalList);
+        // } else {
+        //   tempList += 1;
+        // }
+      });
     });
   });
 });
