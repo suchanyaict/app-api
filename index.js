@@ -666,6 +666,8 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
           // console.log("yo2");
           // console.log(listResult[0]);
           // console.log()
+          var firstIndex = 0
+          const secondIndex = 0
           listResult.forEach(function (entry) {
             console.log("each");
             console.log(entry);
@@ -679,6 +681,11 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
               result.forEach(function (entry) {
                 global.numberType.push(entry);
               });
+              if(firstIndex == secondIndex - 1) {
+                res.send(numberType)
+              } else {
+                firstIndex = firstIndex + 1
+              }
               console.log('loop');
               console.log(numberType);
             });
@@ -686,8 +693,6 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
             console.log(numberType);
             // res.send(numberType);
           });
-          console.log("check result")
-          res.send(global.numberType);
         } else {
           tempList += 1;
         }
