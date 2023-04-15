@@ -401,13 +401,12 @@ const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
         '") having BusNumber = "' +
         tempBusNumber +
         '";';
-      console.log(passingQuery);
       connection.query(passingQuery, function (err, resultNumber, fields) {
         if (resultNumber != 0) {
           obj.BusNumber = resultNumber[0].BusNumber;
+          tempSecondList.push(obj);
+          global.realBusnumber.push(obj);
         }
-        tempSecondList.push(obj);
-        global.realBusnumber.push(obj);
       });
     });
     console.log(global.realBusnumber);
