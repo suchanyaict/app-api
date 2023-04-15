@@ -675,11 +675,11 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         // if (tempList == resultNum.length - 1) {
         //   res.send(finalList);
         // } else {
-        tempList += 1;
+        global.tempList += 1;
         // }
       });
     });
-    if (tempList == resultNum.length - 1) {
+    if (global.tempList == resultNum.length - 1) {
       // res.send(finalList);
       console.log("yo");
       console.log(global.listResult);
