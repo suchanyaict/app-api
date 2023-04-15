@@ -662,7 +662,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
           // console.log(listResult);
         }
         console.log(listResult);
-        res.send(listResult);
+        // res.send(listResult);
 
         // listResult.push(obj);
         // const finalList = listResult.filter((element) => {
@@ -679,6 +679,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         // }
       });
     });
+    console.log(listResult);
   });
 });
 
