@@ -627,7 +627,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
   const stop = req.params.stop;
   var busNum;
   listResult = [];
-  numberType = [];
+  global.numberType = [];
   var tempList = 0;
   var obj = new Object();
 
@@ -677,7 +677,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
             connection.query(busnumQuery, function (err, result, fields) {
               console.log(result);
               result.forEach(function (entry) {
-                numberType.push(entry);
+                global.numberType.push(entry);
               });
               console.log('loop');
               console.log(numberType);
@@ -687,7 +687,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
             // res.send(numberType);
           });
           console.log("check result")
-           res.send(numberType);
+          res.send(global.numberType);
         } else {
           tempList += 1;
         }
