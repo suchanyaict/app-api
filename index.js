@@ -382,13 +382,13 @@ const busNumberFirstQuery = function (start, stop, connection) {
         listFirstQuery.push(busNumberForFirst);
         global.busNumber.push(busNumberForFirst);
       });
+      console.log("Call busNumberFirstNumber");
+      console.log("local");
+      console.log(listFirstQuery);
+      console.log("global");
+      console.log(global.busNumber);
+      resolve(listFirstQuery);
     });
-    console.log("Call busNumberFirstNumber");
-    console.log("local");
-    console.log(listFirstQuery);
-    console.log("global");
-    console.log(global.busNumber);
-    resolve(listFirstQuery);
   });
 };
 // ip: start&stop
