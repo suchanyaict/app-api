@@ -663,10 +663,9 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         if (tempList == resultNum.length - 1) {
           console.log("yo");
           console.log(listResult);
-          for (var i; i < listResult.length - 1; i++) {
-            console.log("baby");
-            console.log(listResult[i]);
-          }
+          listResult.forEach(function (entry) {
+            console.log(entry);
+          });
 
           // res.send(finalList);
         } else {
