@@ -389,8 +389,6 @@ const busNumberSecondQueryConnection = function (passingQuery) {
       if (resultNumber != 0) {
         obj.BusNumber = resultNumber[0].BusNumber;
         global.realBusnumber.push(obj);
-        console.log("Result call sql second");
-        console.log(obj);
         resolve(obj);
       }
     });
@@ -418,6 +416,8 @@ const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
       const busNumberSecondQueryList = await busNumberSecondQueryConnection(
         passingQuery
       );
+      console.log("result call sql second");
+      console.log(busNumberSecondQueryList);
       secondFilterBusNumber.push(busNumberSecondQueryList);
     });
     console.log("Result second query list");
@@ -449,7 +449,12 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   );
   console.log("first query data");
   console.log(busNumberFirstQueryList);
-  const busNumberSecindQueryList = await busNumberSecondQuery(start, stop, busNumberFirstQueryList);
+  const busNumberSecindQueryList = await busNumberSecondQuery(
+    start,
+    stop,
+    busNumberFirstQueryList
+  );
+  bus;
   console.log("List secind filter");
   console.log(busNumberSecindQueryList);
 
