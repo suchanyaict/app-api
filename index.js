@@ -372,25 +372,49 @@ const busNumberFirstQuery = function (start, stop, connection) {
       stop +
       '") GROUP BY BusNumber having COUNT(StationName) > 1;';
     connection.query(busnumQuery, async function (err, resultNum, fields) {
-      console.log(resultNum);
       resultNum.forEach(function (entry) {
-        console.log("entry");
-        console.log(entry);
         busNumberForFirst = entry.BusNumber;
-        console.log("dot");
-        console.log(busNumberForFirst);
         listFirstQuery.push(busNumberForFirst);
         global.busNumber.push(busNumberForFirst);
       });
-      console.log("Call busNumberFirstNumber");
-      console.log("local");
-      console.log(listFirstQuery);
-      console.log("global");
-      console.log(global.busNumber);
       resolve(listFirstQuery);
     });
   });
 };
+
+const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
+  console.log("second query");
+  console.log(busNumberFirstQueryList);
+  const tempSecondList = [];
+  return new Promise(function (resolve, reject) {
+    busNumberFirstQueryList.forEach(function (tempBusNumber) {
+      var obj = new Object();
+      const passingQuery =
+        'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+        start +
+        '" and BusNumber = "' +
+        tempBusNumber +
+        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+        stop +
+        '" and BusNumber = "' +
+        tempBusNumber +
+        '") having BusNumber = "' +
+        tempBusNumber +
+        '";';
+      connection.query(passingQuery, function (err, resultNumber, fields) {
+        if (resultNumber != 0) {
+          obj.BusNumber = resultNumber[0].BusNumber;
+        }
+        tempSecondList.push(obj);
+        global.realBusnumber.push(obj);
+      });
+    });
+    console.log(global.realBusnumber);
+    console.log(tempSecondList);
+    resolve(tempSecondList);
+  });
+};
+
 // ip: start&stop
 // op: BusNumber
 app.get("/newbusnumber/:start&:stop", async function (req, res) {
@@ -414,7 +438,18 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   );
   console.log("first  query");
   console.log(busNumberFirstQueryList);
+  console.log("global  query");
   console.log(global.busNumber);
+
+  const busNumberSecondQueryList = await busNumberSecondQuery(
+    start,
+    stop,
+    busNumberFirstQueryList
+  );
+  console.log("secind  query");
+  console.log(busNumberSecondQueryList);
+  console.log("secind  global");
+  console.log(global.realBusnumber);
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
