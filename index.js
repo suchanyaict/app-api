@@ -433,23 +433,19 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
       '";';
     const busNumberSecondQueryList = await busNumberSecondQuery(passingQuery);
     secondFilterBusNumber.push(busNumberSecondQueryList);
-    console.log(busNumberSecondQueryList);
   });
 
   console.log("List secind filter");
   console.log(secondFilterBusNumber);
 
-  global.filterBusNumber = secondFilterBusNumber.filter((element) => {
-    console.log("in filter")
-    console.log(element)
-    if (Object.keys(element).length !== 0) {
-      return true;
-    }
-    return false;
-  });
-
-  console.log("filter last  list")
-  console.log(global.filterBusNumber)
+  // global.filterBusNumber = secondFilterBusNumber.filter((element) => {
+  //   console.log("in filter")
+  //   console.log(element)
+  //   if (Object.keys(element).length !== 0) {
+  //     return true;
+  //   }
+  //   return false;
+  // });
 
   // const busnumQuery =
   //   'select BusNumber from stationInfo where StationName in ("' +
