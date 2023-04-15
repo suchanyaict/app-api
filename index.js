@@ -454,7 +454,6 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
     stop,
     busNumberFirstQueryList
   );
-  bus;
   console.log("List secind filter");
   console.log(busNumberSecindQueryList);
 
