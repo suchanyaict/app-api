@@ -380,9 +380,9 @@ const busNumberFirstQuery = function (start, stop, connection) {
     });
     console.log("Call busNumberFirstNumber");
     console.log("local");
-    console.log(resultNum);
+    console.log(listFirstQuery);
     console.log("global");
-    console.log(resultNum);
+    console.log(global.busNumber);
     resolve(listFirstQuery);
   });
 };
