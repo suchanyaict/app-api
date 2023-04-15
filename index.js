@@ -426,6 +426,37 @@ const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
   });
 };
 
+const categoryResultList = function (filterBusNumberEmpty){
+  return new Promise(function (resolve, reject) {
+    const categoryResultListTemp = []
+    var firstIndex = 0
+    const secondIndex = filterBusNumberEmpty.length
+    filterBusNumberEmpty.forEach(async function (entry) {
+      const busnumQuery =
+        "select BusNumber, Category from busInfo where BusNumber = '" +
+        entry.BusNumber +
+        "';";
+      const resultQueryCategory = await categoryResultQuery(busnumQuery)
+      categoryResultList.push(resultQueryCategory)
+      if (firstIndex == secondIndex - 1) {
+        resolve(categoryResultList)
+      } else {
+        firstIndex = firstIndex + 1
+      }
+    });
+  })
+}
+
+const categoryResultQuery = function (categoryResultQuery) {
+  return new Promise(function (resolve, reject) {
+    connection.query(busnumQuery, async function (err, result, fields) {
+      result.forEach(function (entry) {
+        resolve(entry)
+      });
+    });
+  });
+}
+
 // ip: start&stop
 // op: BusNumber
 app.get("/newbusnumber/:start&:stop", async function (req, res) {
@@ -466,6 +497,10 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   console.log("Filter busNumber empty");
   console.log(filterBusNumberEmpty);
 
+  const categoryResult = await categoryResultList(filterBusNumberEmpty)
+  console.log("Category result")
+  console.log(categoryResult)
+  res.send(categoryResult);
   // global.filterBusNumber = secondFilterBusNumber.filter((element) => {
   //   console.log("in filter")
   //   console.log(element)
