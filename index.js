@@ -440,6 +440,8 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   console.log(secondFilterBusNumber);
 
   global.filterBusNumber = secondFilterBusNumber.filter((element) => {
+    console.log("in filter")
+    console.log(element)
     if (Object.keys(element).length !== 0) {
       return true;
     }
