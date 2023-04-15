@@ -401,8 +401,6 @@ const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
     var firstIndex = 0
     const secondIndex = busNumberFirstQueryList.length
     busNumberFirstQueryList.forEach(async function (tempBusNumber) {
-      console.log("Loop second query");
-      console.log(tempBusNumber);
       const passingQuery =
         'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
         start +
