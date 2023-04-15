@@ -627,7 +627,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
   const stop = req.params.stop;
   var busNum;
   global.listResult = [];
-  // var tempList = 0;
+  var tempList = 0;
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -662,7 +662,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
           // console.log(listResult);
         }
         console.log(listResult);
-        console.log('hi');
+        console.log("hi");
         // res.send(listResult);
 
         // listResult.push(obj);
@@ -680,8 +680,13 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         // }
       });
     });
-    console.log("yo");
-    console.log(listResult);
+    if (tempList == resultNum.length - 1) {
+      // res.send(finalList);
+      console.log("yo");
+      console.log(listResult);
+    } else {
+      tempList += 1;
+    }
   });
 });
 
