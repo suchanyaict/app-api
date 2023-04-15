@@ -658,10 +658,11 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         }
         console.log("hi");
         console.log(listResult);
+        console.log("out");
 
         if (tempList == resultNum.length - 1) {
           console.log("yo");
-          console.log(listResult);
+          // console.log(listResult);
 
           // res.send(finalList);
         } else {
