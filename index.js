@@ -382,16 +382,47 @@ const busNumberFirstQuery = function (start, stop, connection) {
   });
 };
 
-const busNumberSecondQuery = function (passingQuery) {
+const busNumberSecondQueryConnection = function (passingQuery) {
   var obj = new Object();
   return new Promise(function (resolve, reject) {
     connection.query(passingQuery, function (err, resultNumber, fields) {
       if (resultNumber != 0) {
         obj.BusNumber = resultNumber[0].BusNumber;
         global.realBusnumber.push(obj);
+        console.log("Result call sql second");
+        console.log(obj);
         resolve(obj);
       }
     });
+  });
+};
+
+const busNumberSecondQuery = function (busNumberFirstQueryList) {
+  return new Promise(function (resolve, reject) {
+    const secondFilterBusNumber = [];
+    busNumberFirstQueryList.forEach(async function (tempBusNumber) {
+      console.log("Loop second query");
+      console.log(tempBusNumber);
+      const passingQuery =
+        'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+        start +
+        '" and BusNumber = "' +
+        tempBusNumber +
+        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+        stop +
+        '" and BusNumber = "' +
+        tempBusNumber +
+        '") having BusNumber = "' +
+        tempBusNumber +
+        '";';
+      const busNumberSecondQueryList = await busNumberSecondQueryConnection(
+        passingQuery
+      );
+      secondFilterBusNumber.push(busNumberSecondQueryList);
+    });
+    console.log("Result second query list");
+    console.log(secondFilterBusNumber);
+    resolve(secondFilterBusNumber);
   });
 };
 
@@ -418,26 +449,9 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   );
   console.log("first query data");
   console.log(busNumberFirstQueryList);
-  const secondFilterBusNumber = [];
-  busNumberFirstQueryList.forEach(async function (tempBusNumber) {
-    const passingQuery =
-      'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
-      start +
-      '" and BusNumber = "' +
-      tempBusNumber +
-      '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
-      stop +
-      '" and BusNumber = "' +
-      tempBusNumber +
-      '") having BusNumber = "' +
-      tempBusNumber +
-      '";';
-    const busNumberSecondQueryList = await busNumberSecondQuery(passingQuery);
-    secondFilterBusNumber.push(busNumberSecondQueryList);
-  });
-
+  const busNumberSecindQueryList = await busNumberSecondQuery();
   console.log("List secind filter");
-  console.log(secondFilterBusNumber);
+  console.log(busNumberSecindQueryList);
 
   // global.filterBusNumber = secondFilterBusNumber.filter((element) => {
   //   console.log("in filter")
