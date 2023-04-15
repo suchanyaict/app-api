@@ -398,7 +398,7 @@ const busNumberSecondQueryConnection = function (passingQuery) {
 const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
   return new Promise(function (resolve, reject) {
     const secondFilterBusNumber = [];
-    const firstIndex = 0
+    var firstIndex = 0
     const secondIndex = busNumberFirstQueryList.length
     busNumberFirstQueryList.forEach(async function (tempBusNumber) {
       console.log("Loop second query");
