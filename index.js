@@ -661,7 +661,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
           global.listResult.push(resultNumber[0].BusNumber);
           // console.log(listResult);
         }
-        console.log(listResult);
+        console.log(global.listResult);
         console.log("hi");
         // res.send(listResult);
 
@@ -682,7 +682,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
     });
   });
   console.log("yo");
-  console.log(listResult);
+  console.log(global.listResult);
 });
 
 app.listen(process.env.PORT || 3000);
