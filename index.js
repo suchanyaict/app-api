@@ -676,10 +676,10 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
             console.log(busnumQuery);
             connection.query(busnumQuery, function (err, result, fields) {
               console.log(result);
-              // result.forEach(function (entry) {
-              //   numberType.push(entry);
-              // });
-
+              result.forEach(function (entry) {
+                numberType.push(entry);
+              });
+              console.log(numberType);
             });
           });
           // for (var i = 0; i < listResult.length; i++) {
