@@ -626,8 +626,8 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   var busNum;
-  global.listResult = [];
-  global.tempList = 0;
+  listResult = [];
+  var tempList = 0;
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
@@ -651,39 +651,24 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         '") having BusNumber = "' +
         busNum +
         '";';
+
       connection.query(passingQuery, function (err, resultNumber, fields) {
-        // console.log("yo");
-        // console.log(resultNumber);
         if (resultNumber != 0) {
-          // console.log("test");
-          // console.log(resultNumber);
-          global.listResult.push(resultNumber[0].BusNumber);
-          // console.log(listResult);
+          listResult.push(resultNumber[0].BusNumber);
         }
-        console.log(global.listResult);
         console.log("hi");
-        // res.send(listResult);
+        console.log(listResult);
 
-        // listResult.push(obj);
-        // const finalList = listResult.filter((element) => {
-        //   if (Object.keys(element).length !== 0) {
-        //     return true;
-        //   }
-        //   return false;
-        // });
+        if (tempList == resultNum.length - 1) {
+          console.log("yo");
+          console.log(listResult);
 
-        // if (tempList == resultNum.length - 1) {
-        //   res.send(finalList);
-        // } else {
-        global.tempList += 1;
-        // }
+          // res.send(finalList);
+        } else {
+          tempList += 1;
+        }
       });
     });
-    if (global.tempList == resultNum.length - 1) {
-      // res.send(finalList);
-      console.log("yo");
-      console.log(global.listResult);
-    }
   });
 });
 
