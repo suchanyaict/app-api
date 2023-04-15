@@ -662,6 +662,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
           // console.log(listResult);
         }
         console.log(listResult);
+        console.log('hi');
         // res.send(listResult);
 
         // listResult.push(obj);
