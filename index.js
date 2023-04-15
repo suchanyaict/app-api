@@ -403,10 +403,14 @@ const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
         '";';
       connection.query(passingQuery, function (err, resultNumber, fields) {
         if (resultNumber != 0) {
+          console.log("in");
+          console.log(resultNumber);
           obj.BusNumber = resultNumber[0].BusNumber;
           tempSecondList.push(obj);
           global.realBusnumber.push(obj);
         }
+        console.log("out");
+        console.log(resultNumber);
       });
     });
     console.log(global.realBusnumber);
