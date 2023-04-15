@@ -676,13 +676,16 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         // if (tempList == resultNum.length - 1) {
         //   res.send(finalList);
         // } else {
-        //   tempList += 1;
+        tempList += 1;
         // }
       });
     });
   });
-  console.log("yo");
-  console.log(global.listResult);
+  if (tempList == resultNum.length - 1) {
+    // res.send(finalList);
+    console.log("yo");
+    console.log(global.listResult);
+  }
 });
 
 app.listen(process.env.PORT || 3000);
