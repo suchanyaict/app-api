@@ -387,9 +387,9 @@ const busNumberSecondQuery = function (passingQuery) {
   return new Promise(function (resolve, reject) {
     connection.query(passingQuery, function (err, resultNumber, fields) {
       if (resultNumber != 0) {
+        console.log("check result")
         console.log(resultNumber);
         obj.BusNumber = resultNumber[0].BusNumber;
-        tempSecondList.push(obj);
         global.realBusnumber.push(obj);
         resolve(obj);
       }
