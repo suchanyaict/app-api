@@ -400,8 +400,8 @@ const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
     const secondFilterBusNumber = [];
     var firstIndex = 0;
     const secondIndex = busNumberFirstQueryList.length;
-    console.log("index list")
-    console.log(secondIndex)
+    console.log("index list");
+    console.log(secondIndex);
     busNumberFirstQueryList.forEach(async function (tempBusNumber) {
       const passingQuery =
         'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
@@ -428,36 +428,36 @@ const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
   });
 };
 
-const categoryResultList = function (filterBusNumberEmpty){
+const categoryResultList = function (filterBusNumberEmpty) {
   return new Promise(function (resolve, reject) {
-    const categoryResultListTemp = []
-    var firstIndex = 0
-    const secondIndex = filterBusNumberEmpty.length
+    const categoryResultListTemp = [];
+    var firstIndex = 0;
+    const secondIndex = filterBusNumberEmpty.length;
     filterBusNumberEmpty.forEach(async function (entry) {
       const busnumQuery =
         "select BusNumber, Category from busInfo where BusNumber = '" +
         entry.BusNumber +
         "';";
-      const resultQueryCategory = await categoryResultQuery(busnumQuery)
-      categoryResultListTemp.push(resultQueryCategory)
+      const resultQueryCategory = await categoryResultQuery(busnumQuery);
+      categoryResultListTemp.push(resultQueryCategory);
       if (firstIndex == secondIndex - 1) {
-        resolve(categoryResultListTemp)
+        resolve(categoryResultListTemp);
       } else {
-        firstIndex = firstIndex + 1
+        firstIndex = firstIndex + 1;
       }
     });
-  })
-}
+  });
+};
 
 const categoryResultQuery = function (categoryResultQuery) {
   return new Promise(function (resolve, reject) {
     connection.query(categoryResultQuery, async function (err, result, fields) {
       result.forEach(function (entry) {
-        resolve(entry)
+        resolve(entry);
       });
     });
   });
-}
+};
 
 // ip: start&stop
 // op: BusNumber
@@ -499,9 +499,9 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   console.log("Filter busNumber empty");
   console.log(filterBusNumberEmpty);
 
-  const categoryResult = await categoryResultList(filterBusNumberEmpty)
-  console.log("Category result")
-  console.log(categoryResult)
+  const categoryResult = await categoryResultList(filterBusNumberEmpty);
+  console.log("Category result");
+  console.log(categoryResult);
   res.status(200).json(categoryResult);
   // global.filterBusNumber = secondFilterBusNumber.filter((element) => {
   //   console.log("in filter")
@@ -618,6 +618,62 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           tempList += 1;
         }
       });
+    });
+  });
+});
+
+app.get("/testbusnumber/:start&:stop", (req, res) => {
+  const start = req.params.start;
+  const stop = req.params.stop;
+  var busNum;
+  listResult = [];
+  var tempList = 0;
+  var passingQuery;
+
+  const busnumQuery =
+    'select BusNumber from stationInfo where StationName in ("' +
+    start +
+    '","' +
+    stop +
+    '") GROUP BY BusNumber having COUNT(StationName) > 1;';
+  connection.query(busnumQuery, function (err, resultNum, fields) {
+    resultNum.forEach(function (entry) {
+      // var obj = new Object();
+      busNum = entry.BusNumber;
+      passingQuery =
+        'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+        start +
+        '" and BusNumber = "' +
+        busNum +
+        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+        stop +
+        '" and BusNumber = "' +
+        busNum +
+        '") having BusNumber = "' +
+        busNum +
+        '";';
+      console.log("in");
+      console.log(passingQuery);
+    });
+    console.log("out");
+    console.log(passingQuery);
+    connection.query(passingQuery, function (err, resultNumber, fields) {
+      if (resultNumber != 0) {
+        obj.BusNumber = resultNumber[0].BusNumber;
+      }
+      listResult.push(obj);
+      const finalList = listResult.filter((element) => {
+        if (Object.keys(element).length !== 0) {
+          return true;
+        }
+        return false;
+      });
+
+      if (tempList == resultNum.length - 1) {
+        res.send(finalList);
+      } else {
+        tempList += 1;
+      }
     });
   });
 });
