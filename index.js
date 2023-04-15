@@ -667,7 +667,7 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
           // console.log(listResult[0]);
           // console.log()
           var firstIndex = 0
-          const secondIndex = 0
+          const secondIndex = listResult.length
           listResult.forEach(function (entry) {
             console.log("each");
             console.log(entry);
