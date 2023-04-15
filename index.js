@@ -449,7 +449,7 @@ const categoryResultList = function (filterBusNumberEmpty){
 
 const categoryResultQuery = function (categoryResultQuery) {
   return new Promise(function (resolve, reject) {
-    connection.query(busnumQuery, async function (err, result, fields) {
+    connection.query(categoryResultQuery, async function (err, result, fields) {
       result.forEach(function (entry) {
         resolve(entry)
       });
