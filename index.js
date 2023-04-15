@@ -449,7 +449,7 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   );
   console.log("first query data");
   console.log(busNumberFirstQueryList);
-  const busNumberSecindQueryList = await busNumberSecondQuery();
+  const busNumberSecindQueryList = await busNumberSecondQuery(busNumberFirstQueryList);
   console.log("List secind filter");
   console.log(busNumberSecindQueryList);
 
