@@ -679,10 +679,14 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
               result.forEach(function (entry) {
                 numberType.push(entry);
               });
+              console.log('loop');
               console.log(numberType);
             });
+            console.log('loop2');
+            console.log(numberType);
+            // res.send(numberType);
           });
-          res.send(numberType);
+          
           // for (var i = 0; i < listResult.length; i++) {
           //   console.log("for");
           //   console.log(listResult[i]);
