@@ -397,7 +397,7 @@ const busNumberSecondQueryConnection = function (passingQuery) {
   });
 };
 
-const busNumberSecondQuery = function (busNumberFirstQueryList) {
+const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
   return new Promise(function (resolve, reject) {
     const secondFilterBusNumber = [];
     busNumberFirstQueryList.forEach(async function (tempBusNumber) {
@@ -449,7 +449,7 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   );
   console.log("first query data");
   console.log(busNumberFirstQueryList);
-  const busNumberSecindQueryList = await busNumberSecondQuery(busNumberFirstQueryList);
+  const busNumberSecindQueryList = await busNumberSecondQuery(start, stop, busNumberFirstQueryList);
   console.log("List secind filter");
   console.log(busNumberSecindQueryList);
 
