@@ -680,9 +680,9 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         // }
       });
     });
-    console.log("yo");
-    console.log(listResult);
   });
+  console.log("yo");
+  console.log(listResult);
 });
 
 app.listen(process.env.PORT || 3000);
