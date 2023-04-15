@@ -437,9 +437,9 @@ const categoryResultList = function (filterBusNumberEmpty){
         entry.BusNumber +
         "';";
       const resultQueryCategory = await categoryResultQuery(busnumQuery)
-      categoryResultList.push(resultQueryCategory)
+      categoryResultListTemp.push(resultQueryCategory)
       if (firstIndex == secondIndex - 1) {
-        resolve(categoryResultList)
+        resolve(categoryResultListTemp)
       } else {
         firstIndex = firstIndex + 1
       }
