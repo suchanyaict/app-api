@@ -653,14 +653,15 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         '";';
 
       connection.query(passingQuery, function (err, resultNumber, fields) {
-        console.log("yo");
-        console.log(resultNumber);
+        // console.log("yo");
+        // console.log(resultNumber);
         if (resultNumber != 0) {
-          console.log("test");
-          console.log(resultNumber);
+          // console.log("test");
+          // console.log(resultNumber);
           listResult.push(resultNumber[0].BusNumber);
-          console.log(listResult);
+          // console.log(listResult);
         }
+        console.log(listResult);
         // listResult.push(obj);
         // const finalList = listResult.filter((element) => {
         //   if (Object.keys(element).length !== 0) {
