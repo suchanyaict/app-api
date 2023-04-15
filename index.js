@@ -2,13 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
 const app = express();
-const mySqlPromise = require('mysql2/promise')
+const mySqlPromise = require("mysql2/promise");
 app.use(express.json());
 
 app.use(cors());
 
 const connection = mysql.createConnection(process.env.DATABASE_URL);
-const connectionPromise = mySqlPromise.createConnection(process.env.DATABASE_URL);
+const connectionPromise = mySqlPromise.createConnection(
+  process.env.DATABASE_URL
+);
 
 //
 app.all("/", (req, res) => {
@@ -358,31 +360,35 @@ app.get("/newprice/:busType/:distance", (req, res) => {
 //   }).then;
 // };
 
-const busNumberFirstQuery = function(start, stop, connection){
+const busNumberFirstQuery = function (start, stop, connection) {
   console.log("First query busNumber");
-  const listFirstQuery = []
-  return new Promise(function(resolve,reject){
+  const listFirstQuery = [];
+  return new Promise(function (resolve, reject) {
     const busnumQuery =
-    'select BusNumber from stationInfo where StationName in ("' +
-    start +
-    '","' +
-    stop +
-    '") GROUP BY BusNumber having COUNT(StationName) > 1;';
-  connection.query(busnumQuery, async function (err, resultNum, fields) {
-    console.log(resultNum)
-    resultNum.forEach(function (entry) {
-      busNum = entry.BusNumber;
-      listFirstQuery.push(busNumber)
-      global.busNumber.push(busNum);
+      'select BusNumber from stationInfo where StationName in ("' +
+      start +
+      '","' +
+      stop +
+      '") GROUP BY BusNumber having COUNT(StationName) > 1;';
+    connection.query(busnumQuery, async function (err, resultNum, fields) {
+      console.log(resultNum);
+      resultNum.forEach(function (entry) {
+        busNum = entry.BusNumber;
+        listFirstQuery.push(busNumber);
+        global.busNumber.push(busNum);
+      });
     });
-  })
-  resolve(listFirstQuery)
- })
-}
-
+    console.log("Call busNumberFirstNumber");
+    console.log("local");
+    console.log(resultNum);
+    console.log("global");
+    console.log(resultNum);
+    resolve(listFirstQuery);
+  });
+};
 // ip: start&stop
 // op: BusNumber
-app.get("/newbusnumber/:start&:stop", async function(req, res) {
+app.get("/newbusnumber/:start&:stop", async function (req, res) {
   const start = req.params.start;
   const stop = req.params.stop;
   var busNum;
@@ -396,10 +402,14 @@ app.get("/newbusnumber/:start&:stop", async function(req, res) {
   global.listForCategory = [];
   global.numberType = [];
 
-  const busNumberFirstQueryList = await busNumberFirstQuery(start, stop, connection);
-  console.log("first  query")
-  console.log(busNumberFirstQueryList)
-  console.log(global.busNumber)
+  const busNumberFirstQueryList = await busNumberFirstQuery(
+    start,
+    stop,
+    connection
+  );
+  console.log("first  query");
+  console.log(busNumberFirstQueryList);
+  console.log(global.busNumber);
 
   const busnumQuery =
     'select BusNumber from stationInfo where StationName in ("' +
