@@ -418,8 +418,6 @@ const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
       const busNumberSecondQueryList = await busNumberSecondQueryConnection(
         passingQuery
       );
-      console.log("result call sql second");
-      console.log(busNumberSecondQueryList);
       secondFilterBusNumber.push(busNumberSecondQueryList);
       if(firstIndex == secondIndex - 1){
         resolve(secondFilterBusNumber)
