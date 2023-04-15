@@ -667,6 +667,10 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
           listResult.forEach(function (entry) {
             console.log(entry);
           });
+          for (var i = 0; i < listResult.length; i++) {
+            console.log("for");
+            console.log(listResult[i]);
+          }
 
           // res.send(finalList);
         } else {
