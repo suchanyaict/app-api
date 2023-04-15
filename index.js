@@ -384,12 +384,9 @@ const busNumberFirstQuery = function (start, stop, connection) {
 
 const busNumberSecondQuery = function (passingQuery) {
   var obj = new Object();
-  console.log(passingQuery)
   return new Promise(function (resolve, reject) {
     connection.query(passingQuery, function (err, resultNumber, fields) {
       if (resultNumber != 0) {
-        console.log("check result")
-        console.log(resultNumber);
         obj.BusNumber = resultNumber[0].BusNumber;
         global.realBusnumber.push(obj);
         resolve(obj);
@@ -419,16 +416,9 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
     stop,
     connection
   );
-  console.log("first  query");
-  console.log(busNumberFirstQueryList);
-  console.log("global  query");
-  console.log(global.busNumber);
 
-  console.log("second query");
-  console.log(busNumberFirstQueryList);
-  const tempSecondList = [];
+  const secondFilterBusNumber = [];
   busNumberFirstQueryList.forEach(async function (tempBusNumber) {
-    var obj = new Object();
     const passingQuery =
       'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
       start +
@@ -442,9 +432,22 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
       tempBusNumber +
       '";';
     const busNumberSecondQueryList = await busNumberSecondQuery(passingQuery);
-    console.log("result secind 2 ");
+    secondFilterBusNumber.push(busNumberSecondQueryList);
     console.log(busNumberSecondQueryList);
   });
+
+  console.log("List secind filter");
+  console.log(secondFilterBusNumber);
+
+  global.filterBusNumber = secondFilterBusNumber.filter((element) => {
+    if (Object.keys(element).length !== 0) {
+      return true;
+    }
+    return false;
+  });
+
+  console.log("filter last  list")
+  console.log(global.filterBusNumber)
 
   // const busnumQuery =
   //   'select BusNumber from stationInfo where StationName in ("' +
