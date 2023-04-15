@@ -424,16 +424,6 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   console.log("global  query");
   console.log(global.busNumber);
 
-  const busNumberSecondQueryList = await busNumberSecondQuery(
-    start,
-    stop,
-    busNumberFirstQueryList
-  );
-  console.log("secind  query");
-  console.log(busNumberSecondQueryList);
-  console.log("secind  global");
-  console.log(global.realBusnumber);
-
   console.log("second query");
   console.log(busNumberFirstQueryList);
   const tempSecondList = [];
