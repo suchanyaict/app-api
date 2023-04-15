@@ -416,7 +416,8 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
     stop,
     connection
   );
-
+  console.log("first query data");
+  console.log(busNumberFirstQueryList);
   const secondFilterBusNumber = [];
   busNumberFirstQueryList.forEach(async function (tempBusNumber) {
     const passingQuery =
