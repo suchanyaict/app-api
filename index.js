@@ -680,13 +680,8 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         // }
       });
     });
-    if (tempList == resultNum.length - 1) {
-      // res.send(finalList);
-      console.log("yo");
-      console.log(listResult);
-    } else {
-      tempList += 1;
-    }
+    console.log("yo");
+    console.log(listResult);
   });
 });
 
