@@ -651,7 +651,6 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         '") having BusNumber = "' +
         busNum +
         '";';
-
       connection.query(passingQuery, function (err, resultNumber, fields) {
         // console.log("yo");
         // console.log(resultNumber);
@@ -680,12 +679,12 @@ app.get("/testbusnumber/:start&:stop", (req, res) => {
         // }
       });
     });
+    if (tempList == resultNum.length - 1) {
+      // res.send(finalList);
+      console.log("yo");
+      console.log(global.listResult);
+    }
   });
-  if (tempList == resultNum.length - 1) {
-    // res.send(finalList);
-    console.log("yo");
-    console.log(global.listResult);
-  }
 });
 
 app.listen(process.env.PORT || 3000);
