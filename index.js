@@ -567,7 +567,6 @@ app.get("/newbusnumber/:start&:stop", async function (req, res) {
   //   });
   //   res.send(global.numberType);
   // });
-  res.send("test");
 });
 
 app.get("/busnumber/:start&:stop", (req, res) => {
