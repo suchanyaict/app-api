@@ -384,6 +384,7 @@ const busNumberFirstQuery = function (start, stop, connection) {
 
 const busNumberSecondQuery = function (passingQuery) {
   var obj = new Object();
+  console.log(passingQuery)
   return new Promise(function (resolve, reject) {
     connection.query(passingQuery, function (err, resultNumber, fields) {
       if (resultNumber != 0) {
