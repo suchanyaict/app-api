@@ -424,7 +424,7 @@ const busNumberSecondQuery = function (start, stop, busNumberFirstQueryList) {
       if(firstIndex == secondIndex - 1){
         resolve(secondFilterBusNumber)
       } else {
-        firstIndex += 1
+        firstIndex = firstIndex + 1
       }
     });
   });
