@@ -377,6 +377,8 @@ const busNumberFirstQuery = function (start, stop, connection) {
         console.log("entry");
         console.log(entry);
         busNumberForFirst = entry.BusNumber;
+        console.log("dot");
+        console.log(busNumberForFirst);
         listFirstQuery.push(busNumberForFirst);
         global.busNumber.push(busNumberForFirst);
       });
