@@ -301,7 +301,7 @@ app.get("/price/:busType/:distance", (req, res) => {
   const distance = req.params.distance;
   var price = 0;
   console.log(busType);
-  if (busType === "regular") {
+  if (busType === "Regular") {
     price = 8;
   } else if (busType === "AC") {
     if (distance >= 0 && distance <= 8) {
