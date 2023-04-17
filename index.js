@@ -437,8 +437,8 @@ app.get("/busnumber/:start&:stop", (req, res) => {
         console.log(passingQuery);
 
         connection.query(passingQuery, function (err, resultNumber, fields) {
-          // console.log("next");
-          // console.log(resultNum);
+          console.log("next");
+          console.log(resultNum);
           if (resultNumber != 0) {
             // console.log("level");
             // console.log(resultNum);
