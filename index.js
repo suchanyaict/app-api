@@ -433,7 +433,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           '") having BusNumber = "' +
           busNum +
           '";';
-        console.log("5556");
+        console.log("8812");
         console.log(passingQuery);
 
         connection.query(passingQuery, function (err, resultNumber, fields) {
@@ -443,35 +443,38 @@ app.get("/busnumber/:start&:stop", (req, res) => {
             console.log("level");
             console.log(resultNum);
             listResult.push(resultNumber[0].BusNumber);
-          } 
-          console.log('yoyo')
+          }
+          console.log("yoyo");
           console.log(listResult);
-
-          if (tempList == resultNum.length - 1) {
-            var firstIndex = 0;
-            const secondIndex = listResult.length;
-            listResult.forEach(function (entry) {
-              console.log("each");
-              console.log(entry);
-              const busnumQuery =
-                "select BusNumber, Category from busInfo where BusNumber = '" +
-                entry +
-                "';";
-              console.log(busnumQuery);
-              connection.query(busnumQuery, function (err, result, fields) {
-                console.log(result);
-                result.forEach(function (entry) {
-                  global.numberType.push(entry);
-                });
-                if (firstIndex == secondIndex - 1) {
-                  res.send(numberType);
-                } else {
-                  firstIndex = firstIndex + 1;
-                }
-              });
-            });
+          if (listResult == 0) {
+            res.send([]);
           } else {
-            tempList += 1;
+            if (tempList == resultNum.length - 1) {
+              var firstIndex = 0;
+              const secondIndex = listResult.length;
+              listResult.forEach(function (entry) {
+                console.log("each");
+                console.log(entry);
+                const busnumQuery =
+                  "select BusNumber, Category from busInfo where BusNumber = '" +
+                  entry +
+                  "';";
+                console.log(busnumQuery);
+                connection.query(busnumQuery, function (err, result, fields) {
+                  console.log(result);
+                  result.forEach(function (entry) {
+                    global.numberType.push(entry);
+                  });
+                  if (firstIndex == secondIndex - 1) {
+                    res.send(numberType);
+                  } else {
+                    firstIndex = firstIndex + 1;
+                  }
+                });
+              });
+            } else {
+              tempList += 1;
+            }
           }
         });
       });
