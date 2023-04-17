@@ -410,57 +410,61 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
   console.log("hi");
   console.log(busnumQuery);
+  console.log(err);
+  console.log(resultNum);
+  console.log(fields);
   connection.query(busnumQuery, function (err, resultNum, fields) {
-    console.log(err);
-    console.log(resultNum);
-    console.log(fields);
-    resultNum.forEach(function (entry) {
-      busNum = entry.BusNumber;
-      const passingQuery =
-        'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
-        start +
-        '" and BusNumber = "' +
-        busNum +
-        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
-        stop +
-        '" and BusNumber = "' +
-        busNum +
-        '") having BusNumber = "' +
-        busNum +
-        '";';
+    if (resultNum == []) {
+      res.send([]);
+    } else {
+      resultNum.forEach(function (entry) {
+        busNum = entry.BusNumber;
+        const passingQuery =
+          'select BusNumber from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
+          start +
+          '" and BusNumber = "' +
+          busNum +
+          '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
+          stop +
+          '" and BusNumber = "' +
+          busNum +
+          '") having BusNumber = "' +
+          busNum +
+          '";';
 
-      connection.query(passingQuery, function (err, resultNumber, fields) {
-        if (resultNumber != 0) {
-          listResult.push(resultNumber[0].BusNumber);
-        }
-        if (tempList == resultNum.length - 1) {
-          var firstIndex = 0;
-          const secondIndex = listResult.length;
-          listResult.forEach(function (entry) {
-            console.log("each");
-            console.log(entry);
-            const busnumQuery =
-              "select BusNumber, Category from busInfo where BusNumber = '" +
-              entry +
-              "';";
-            console.log(busnumQuery);
-            connection.query(busnumQuery, function (err, result, fields) {
-              console.log(result);
-              result.forEach(function (entry) {
-                global.numberType.push(entry);
+        connection.query(passingQuery, function (err, resultNumber, fields) {
+          if (resultNumber != 0) {
+            listResult.push(resultNumber[0].BusNumber);
+          }
+          if (tempList == resultNum.length - 1) {
+            var firstIndex = 0;
+            const secondIndex = listResult.length;
+            listResult.forEach(function (entry) {
+              console.log("each");
+              console.log(entry);
+              const busnumQuery =
+                "select BusNumber, Category from busInfo where BusNumber = '" +
+                entry +
+                "';";
+              console.log(busnumQuery);
+              connection.query(busnumQuery, function (err, result, fields) {
+                console.log(result);
+                result.forEach(function (entry) {
+                  global.numberType.push(entry);
+                });
+                if (firstIndex == secondIndex - 1) {
+                  res.send(numberType);
+                } else {
+                  firstIndex = firstIndex + 1;
+                }
               });
-              if (firstIndex == secondIndex - 1) {
-                res.send(numberType);
-              } else {
-                firstIndex = firstIndex + 1;
-              }
             });
-          });
-        } else {
-          tempList += 1;
-        }
+          } else {
+            tempList += 1;
+          }
+        });
       });
-    });
+    }
   });
 });
 
