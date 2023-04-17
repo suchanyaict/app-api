@@ -444,6 +444,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
             console.log(resultNum);
             listResult.push(resultNumber[0].BusNumber);
           } 
+          console.log('yoyo')
           console.log(listResult);
 
           if (tempList == resultNum.length - 1) {
