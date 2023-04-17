@@ -443,7 +443,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           // console.log("yoyo");
           // console.log(listResult);
           if (listResult == 0) {
-            res.send(listResult);
+            res.send([]);
           } else {
             if (tempList == resultNum.length - 1) {
               var firstIndex = 0;
