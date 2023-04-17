@@ -440,12 +440,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
             console.log(resultNum);
             listResult.push(resultNumber[0].BusNumber);
           }
-          console.log("yoyo");
           console.log(listResult);
-          if (listResult != 0) {
-            console.log("null");
-            res.send(listResult);
-          } else {
             if (tempList == resultNum.length - 1) {
               var firstIndex = 0;
               const secondIndex = listResult.length;
@@ -472,7 +467,6 @@ app.get("/busnumber/:start&:stop", (req, res) => {
             } else {
               tempList += 1;
             }
-          }
         });
       });
     }
