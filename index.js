@@ -408,16 +408,16 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     '","' +
     stop +
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
-  console.log("hi");
+  console.log("hi2");
   console.log(busnumQuery);
   console.log(err);
   console.log(resultNum);
   connection.query(busnumQuery, function (err, resultNum, fields) {
-    if (resultNum == []) {
+    if (resultNum == 0) {
       console.log("in null");
-      res.send([]);
+      res.send(resultNum);
     } else {
-      console.log('in not null');
+      console.log("in not null");
       resultNum.forEach(function (entry) {
         busNum = entry.BusNumber;
         const passingQuery =
