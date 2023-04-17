@@ -412,11 +412,12 @@ app.get("/busnumber/:start&:stop", (req, res) => {
   console.log(busnumQuery);
   console.log(err);
   console.log(resultNum);
-  console.log(fields);
   connection.query(busnumQuery, function (err, resultNum, fields) {
     if (resultNum == []) {
+      console.log("in null");
       res.send([]);
     } else {
+      console.log('in not null');
       resultNum.forEach(function (entry) {
         busNum = entry.BusNumber;
         const passingQuery =
