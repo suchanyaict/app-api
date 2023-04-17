@@ -446,8 +446,6 @@ app.get("/busnumber/:start&:stop", (req, res) => {
             if (listResult.length === 0) {
               console.log("List is empty");
               res.send([]);
-            } else {
-              console.log(`List has ${listResult.length} items`);
             }
             var firstIndex = 0;
             const secondIndex = listResult.length;
