@@ -414,11 +414,11 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     // console.log("test");
     // console.log(resultNum);
     if (resultNum == 0) {
-      console.log("in null");
+      // console.log("in null");
       res.send(resultNum);
     } else {
-      console.log("in not null");
-      console.log(resultNum);
+      // console.log("in not null");
+      // console.log(resultNum);
       resultNum.forEach(function (entry) {
         busNum = entry.BusNumber;
         const passingQuery =
@@ -433,21 +433,18 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           '") having BusNumber = "' +
           busNum +
           '";';
-        console.log("8812");
-        console.log(passingQuery);
-
         connection.query(passingQuery, function (err, resultNumber, fields) {
-          console.log("next");
-          console.log(resultNum);
+          // console.log("next");
+          // console.log(resultNum);
           if (resultNumber != 0) {
-            console.log("level");
-            console.log(resultNum);
+            // console.log("level");
+            // console.log(resultNum);
             listResult.push(resultNumber[0].BusNumber);
           }
-          console.log("yoyo");
-          console.log(listResult);
+          // console.log("yoyo");
+          // console.log(listResult);
           if (listResult == 0) {
-            res.send([]);
+            res.send(listResult);
           } else {
             if (tempList == resultNum.length - 1) {
               var firstIndex = 0;
