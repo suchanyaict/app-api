@@ -410,13 +410,13 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
   // console.log(busnumQuery);
   connection.query(busnumQuery, function (err, resultNum, fields) {
-    // console.log("test");
+    console.log("test");
     // console.log(resultNum);
     if (resultNum == 0) {
-      // console.log("in null");
+      console.log("in null");
       res.send(resultNum);
     } else {
-      // console.log("in not null");
+      console.log("in not null");
       // console.log(resultNum);
       resultNum.forEach(function (entry) {
         busNum = entry.BusNumber;
@@ -443,7 +443,8 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           console.log("yoyo");
           console.log(listResult);
           if (listResult == 0) {
-            res.send([]);
+            console.log("null");
+            // res.send();
           } else {
             if (tempList == resultNum.length - 1) {
               var firstIndex = 0;
