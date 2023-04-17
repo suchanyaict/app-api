@@ -442,7 +442,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           }
           console.log("yoyo");
           console.log(listResult);
-          if (listResult == 0) {
+          if (listResult != 0) {
             console.log("null");
             res.send(listResult);
           } else {
