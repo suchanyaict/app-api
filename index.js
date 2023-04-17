@@ -433,7 +433,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           '") having BusNumber = "' +
           busNum +
           '";';
-        console.log("hi55");
+        console.log("5556");
         console.log(passingQuery);
 
         connection.query(passingQuery, function (err, resultNumber, fields) {
@@ -443,11 +443,9 @@ app.get("/busnumber/:start&:stop", (req, res) => {
             console.log("level");
             console.log(resultNum);
             listResult.push(resultNumber[0].BusNumber);
-          } else {
-            console.log("lovol");
-            console.log(resultNum);
-            // res.send([]);
-          }
+          } 
+          console.log(listResult);
+
           if (tempList == resultNum.length - 1) {
             var firstIndex = 0;
             const secondIndex = listResult.length;
