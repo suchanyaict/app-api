@@ -444,7 +444,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           console.log(listResult);
           if (listResult == 0) {
             console.log("null");
-            // res.send();
+            res.send(listResult);
           } else {
             if (tempList == resultNum.length - 1) {
               var firstIndex = 0;
