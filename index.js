@@ -36,7 +36,7 @@ app.get("/stationname", (req, res) => {
   });
 });
 
-// ip: input 
+// ip: input
 // op: station name
 app.get("/bus/:input", (req, res) => {
   const input = req.params.input;
@@ -356,7 +356,7 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     start +
     '","' +
     stop +
-    '") GROUP BY BusNumber having COUNT(StationName) > 1;';
+    '") GROUP BY BusNumber having COUNT(StationName) > 1 order by BusNumber+0 asc;';
   connection.query(busnumQuery, function (err, resultNum, fields) {
     if (resultNum == 0) {
       res.send(resultNum);
