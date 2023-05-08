@@ -27,7 +27,7 @@ app.get("/bus", (req, res) => {
   );
 });
 
-// ip: null
+// ip: -
 // op: station name
 app.get("/stationname", (req, res) => {
   const query = "SELECT DISTINCT StationName from stationInfo;";
@@ -36,7 +36,7 @@ app.get("/stationname", (req, res) => {
   });
 });
 
-// ip: input
+// ip: input 
 // op: station name
 app.get("/bus/:input", (req, res) => {
   const input = req.params.input;
@@ -81,7 +81,7 @@ app.get("/bus/busNumber/start:start&stop:stop", (req, res) => {
 
 // ip: start & stop & busNum
 // op: all stop info that bus passing by
-app.get("/passingStop/:start&:stop/:busnumber", (req, res) => {
+app.get("/passingstop/:start&:stop/:busnumber", (req, res) => {
   const start = req.params.start;
   const stop = req.params.stop;
   const busnumber = req.params.busnumber;
@@ -100,56 +100,6 @@ app.get("/passingStop/:start&:stop/:busnumber", (req, res) => {
     '";';
   connection.query(query, function (err, result, fields) {
     res.send(result);
-  });
-});
-
-// ip: start & stop & busNum
-// op: all stop info that bus passing by
-app.get("/getPassingStop/:start&:stop/", (req, res) => {
-  const start = req.params.start;
-  const stop = req.params.stop;
-  var listResult = [];
-
-  const BusNumQuery =
-    'select * from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
-    start +
-    '" and BusNumber = "' +
-    busnumber +
-    '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
-    stop +
-    '" and BusNumber = "' +
-    busnumber +
-    '") having BusNumber = "' +
-    busnumber +
-    '";';
-  connection.query(BusNumQuery, function (err, BusNumResult, fields) {
-    BusNumResult.forEach(function (entry) {
-      var obj = new Object();
-      busNum = entry.BusNumber;
-      obj.busNumber = busNum;
-      const passingQuery =
-        'select * from stationInfo where RouteSerial >= (select min(RouteSerial) from stationInfo where stationName = "' +
-        start +
-        '" and BusNumber = "' +
-        busnumber +
-        '") and RouteSerial <= (select max(RouteSerial) from stationInfo where stationName = "' +
-        stop +
-        '" and BusNumber = "' +
-        busnumber +
-        '") having BusNumber = "' +
-        busnumber +
-        '";';
-      connection.query(passingQuery, function (err, passingResult, fields) {
-        eachRoute = passingResult[0].passingQuery;
-        obj.eachRoute = eachRoute;
-        listResult.push(obj);
-        if (tempList == BusNumResult.length - 1) {
-          res.send(listResult);
-        } else {
-          tempList += 1;
-        }
-      });
-    });
   });
 });
 
@@ -291,7 +241,6 @@ app.get("/oldprice/:busNumber/:distance", (req, res) => {
         price = 25;
       }
     }
-
     res.send(`${price}`);
   });
 });
@@ -408,16 +357,10 @@ app.get("/busnumber/:start&:stop", (req, res) => {
     '","' +
     stop +
     '") GROUP BY BusNumber having COUNT(StationName) > 1;';
-  // console.log(busnumQuery);
   connection.query(busnumQuery, function (err, resultNum, fields) {
-    console.log("test");
-    // console.log(resultNum);
     if (resultNum == 0) {
-      console.log("in null");
       res.send(resultNum);
     } else {
-      console.log("in not null");
-      // console.log(resultNum);
       resultNum.forEach(function (entry) {
         busNum = entry.BusNumber;
         const passingQuery =
@@ -433,32 +376,21 @@ app.get("/busnumber/:start&:stop", (req, res) => {
           busNum +
           '";';
         connection.query(passingQuery, function (err, resultNumber, fields) {
-          console.log("next");
-          console.log(resultNum);
           if (resultNumber != 0) {
-            console.log("level");
-            console.log(resultNum);
             listResult.push(resultNumber[0].BusNumber);
           }
-          console.log(listResult);
-
           if (tempList == resultNum.length - 1) {
             if (listResult.length === 0) {
-              console.log("List is empty");
               res.send([]);
             }
             var firstIndex = 0;
             const secondIndex = listResult.length;
             listResult.forEach(function (entry) {
-              console.log("each");
-              console.log(entry);
               const busnumQuery =
                 "select BusNumber, Category from busInfo where BusNumber = '" +
                 entry +
                 "';";
-              console.log(busnumQuery);
               connection.query(busnumQuery, function (err, result, fields) {
-                console.log(result);
                 result.forEach(function (entry) {
                   global.numberType.push(entry);
                 });
